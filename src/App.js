@@ -1,24 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import "./App.css";
+import Knob from "./components/Knob";
+import { midiConnect } from "./modules/midi";
+import {} from "./modules/pattern";
 
 function App() {
+  useEffect(() => {
+    (async function() {
+      await midiConnect();
+    })();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <main>
+        <div className="delay-line">
+          <Knob initialValue={0} type={1} onUpdate={val => console.log(val)} />
+          <Knob initialValue={0} type={1} />
+        </div>
+      </main>
     </div>
   );
 }
