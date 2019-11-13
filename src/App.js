@@ -1,47 +1,72 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { midiConnect, midiOut, midiIn } from "./modules/midi";
-import { Dial } from "react-nexusui";
+import { Dial, Sequencer, Toggle } from "react-nexusui";
 
 function App() {
-  const [delay1, setDelay1] = useState(0);
-  const [feedback1, setFeedback1] = useState(0);
+  //CC Looper
+  let looperTime = 0;
+  let clearLooper = false;
+  midiConnect().then(() => {
+    if (midiIn[0]) midiIn[0].addEventListener("midimessage", e => looper(e));
+    function looper(e) {
+      setTimeout(() => {
+        midiOut[0].send(e.data);
+        if (!clearLooper) looper(e);
+      }, looperTime);
+    }
+  });
 
-  useEffect(() => {
-    (async function() {
-      await midiConnect();
-
-      for (const input of midiIn) {
-        input.addEventListener("midimessage", onMidi);
-      }
-
-      function onMidi(e) {
-        feedbackDelay(e, 500, 1);
-      }
-
-      function feedbackDelay(e, time, feedback) {
-        const device = midiOut[0];
-        setTimeout(() => {
-          device.send(e.data);
-          feedback *= feedback;
-          if (feedback > 0) feedbackDelay(e, time, feedback);
-        }, time);
-      }
-    })();
-  }, [delay1, feedback1]);
+  //Sequencer
+  let sequencer = null;
+  let playing = false;
+  function next() {
+    if (playing) sequencer.next();
+    setTimeout(next, 100);
+  }
+  next();
 
   return (
     <div className="App">
       <main>
-        <div className="delay-line">
-          <Dial
-            text="Click me"
+        <div className="dials-step-container">
+          {[...Array(16).keys()].map(val => (
+            <div key={"dial-step-div" + val} className="dial-step">
+              <Dial
+                key={"dial-step-" + val}
+                min={0}
+                max={10}
+                size={[100, 100]}
+                onChange={val => (looperTime = val)}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="sequencer-container">
+          <Sequencer
             min={0}
             max={10}
-            size={[100, 100]}
-            onChange={console.log}
+            columns={16}
+            rows={4}
+            size={[1600, 400]}
+            onReady={seq => (sequencer = seq)}
+            onStep={playStep}
           />
         </div>
+        <div className="dials-track-container">
+          {[...Array(4).keys()].map(val => (
+            <div key={"dial-track-div" + val} className="dial-track">
+              <Dial
+                key={"dial-track-" + val}
+                min={0}
+                max={10}
+                size={[100, 100]}
+                onChange={val => (looperTime = val)}
+              />
+            </div>
+          ))}
+        </div>
+        <Toggle state={false} onChange={state => (playing = state)} />
       </main>
     </div>
   );

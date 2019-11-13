@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "jzz": "^0.9.7",
     "nexusui": "^2.0.10",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",

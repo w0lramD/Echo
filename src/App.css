@@ -20,3 +20,21 @@
 .App-link {
   color: #09d3ac;
 }
+
+.dial-step {
+  width: 100px;
+  transform: translateX(-50px);
+  display: inline-block;
+}
+
+.sequencer-container {
+  display: inline-block;
+}
+
+.dial-track {
+  width: 100px;
+}
+
+.dials-track-container {
+  display: inline-block;
+}
