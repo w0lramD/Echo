@@ -1,20 +1,15 @@
 export let midiIn, midiOut;
-let delay = 0.5;
 
 export async function midiConnect() {
   try {
     const midi = await navigator.requestMIDIAccess();
-    midiReady(midi);
+    initDevices(midi);
   } catch (err) {
     console.log("MIDI not supported", err);
   }
 }
 
-function midiReady(midi) {
-  initDevices(midi);
-}
-
-function initDevices(midi) {
+export function initDevices(midi) {
   midi.addEventListener("statechange", event => initDevices(event.target));
 
   // Reset.
@@ -36,22 +31,4 @@ function initDevices(midi) {
   ) {
     midiOut.push(output.value);
   }
-
-  for (const input of midiIn) {
-    input.addEventListener("midimessage", midiMessageReceived);
-  }
-}
-
-function midiMessageReceived(e) {
-  feedbackDelay(e, 1000, 1000);
-}
-
-function feedbackDelay(e, time, loop) {
-  const device = midiOut[0];
-  setTimeout(() => {
-    console.log(e.data);
-    device.send(e.data);
-    loop -= 1;
-    if (loop > 0) feedbackDelay(e, time, loop);
-  }, time);
 }
