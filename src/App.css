@@ -22,9 +22,9 @@
 }
 
 .dial-step {
-  width: 100px;
-  transform: translateX(-50px);
   display: inline-block;
+  transform: translateX(-50px);
+  width: 100px;
 }
 
 .sequencer-container {

@@ -49,7 +49,7 @@ function App() {
         probSteps[i] > Math.random() &&
         probTracks[i] > Math.random()
       ) {
-        console.log(probSteps[i]);
+        console.log(probTracks[i]);
         empty
           .noteOn(0, "C#5", 127)
           .wait(500)
@@ -86,14 +86,14 @@ function App() {
         </div>
         <div className="dials-track-container">
           {[...Array(4).keys()].map(i => (
-            <div key={"dial-track-div" + i} className="dial-track">
+            <div key={"dial-track-div" + (3 - i)} className="dial-track">
               <Dial
-                key={"dial-track-" + i}
+                key={"dial-track-" + (3 - i)}
                 min={0}
                 max={1}
-                value={probTracks[i]}
+                value={probTracks[3 - i]}
                 size={[100, 100]}
-                onChange={val => (probTracks[i] = val)}
+                onChange={val => (probTracks[3 - i] = val)}
               />
             </div>
           ))}
