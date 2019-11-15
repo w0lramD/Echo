@@ -5,6 +5,7 @@
   "dependencies": {
     "jzz": "^0.9.7",
     "nexusui": "^2.0.10",
+    "p5": "^0.10.2",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-nexusui": "^0.1.7",
