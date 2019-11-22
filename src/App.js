@@ -4,6 +4,9 @@ import Toggle from "./components/Toggle";
 import Number from "./components/Number";
 import Track from "./components/Track";
 import JZZ from "jzz";
+import { synth } from "./modules/synth";
+
+synth.triggerAttackRelease(60, 0.3, 4);
 
 let midiOut = JZZ().openMidiOut();
 let midiIn = JZZ().openMidiIn();
@@ -15,7 +18,6 @@ function setNotes({ target }) {
   notes = target.value.split(" ") || [60];
 }
 
-let probSteps = Array(16).fill(1);
 let probTracks = Array(4).fill(1);
 let playStep;
 midiOut.then(() => {
@@ -49,18 +51,6 @@ function App() {
   return (
     <div className="App">
       <div className="sequencer-container">
-        <div className="porb-steps-container">
-          {[...Array(16).keys()].map(i => (
-            <Number
-              key={"dial-step-" + i}
-              step={0.01}
-              min={0}
-              max={1}
-              value={probSteps[i]}
-              onChange={val => (probSteps[i] = val)}
-            />
-          ))}
-        </div>
         <div className="inliner">
           <div className="tracks-container">
             <Track

@@ -6,7 +6,8 @@
     "jzz": "^0.9.7",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "react-scripts": "3.2.0"
+    "react-scripts": "3.2.0",
+    "tone": "^13.8.25"
   },
   "scripts": {
     "start": "react-scripts start",

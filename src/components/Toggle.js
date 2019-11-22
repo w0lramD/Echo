@@ -35,8 +35,8 @@ export default function Toggle({
           (focused && "toggle-container focused") || "toggle-container"
         }
       >
-        {value && (labelOnTrue || 1)}
-        {!value && (labelOnFalse || 0)}
+        {value && (labelOnTrue || "x")}
+        {!value && (labelOnFalse || "")}
       </div>
     </div>
   );
