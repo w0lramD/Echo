@@ -2,7 +2,6 @@
   text-align: center;
   fotn-size: 9pt;
   height: 50vh;
-  background: #000;
 }
 
 .sequencer-container {
@@ -29,7 +28,6 @@
 
 .midi-nn,
 .echo {
-  background: #000;
   color: #fff;
   font-family: monospace;
   font-size: 11px;
