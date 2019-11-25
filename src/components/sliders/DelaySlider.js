@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import Slider from "./_Slider";
 
-function DelaySliderView({ value }) {
+function DelaySliderView({ value, focus }) {
   const canvas = useRef(null);
   useEffect(() => {
     const cnv = canvas.current;
@@ -23,7 +23,12 @@ function DelaySliderView({ value }) {
     ctx.stroke();
   }, [value]);
 
-  return <canvas className="delay-slider" ref={canvas}></canvas>;
+  return (
+    <canvas
+      className={(focus && "delay-slider focused") || "delay-slider"}
+      ref={canvas}
+    ></canvas>
+  );
 }
 
 export default function DelaySlider({ onChange }) {

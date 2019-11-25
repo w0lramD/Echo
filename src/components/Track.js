@@ -1,55 +1,33 @@
 import React, { useState, useEffect, useRef } from "react";
-import Toggle from "./Toggle";
-import "./Track.css";
 
-export default function Track({ steps, onNext }) {
-  const [track, setTrack] = useState(steps);
-  const [focusedStep, setFocusedStep] = useState(0);
+import DirectionToggle from "./toggles/DirectionToggle";
+import NoteSlider from "./sliders/NoteSlider";
 
-  const timeline = useRef(null);
-  const stepIndex = useRef(0);
-  const play = useRef(() => {});
-  const stop = useRef(() => {});
+export default function Track({ defaultSteps }) {
+  const [steps, setSteps] = useState(defaultSteps);
+  const focusedStep = useRef(0);
 
   useEffect(() => {
-    function next() {
-      stepIndex.current = (stepIndex.current + 1) % track.length;
-      let current = track[stepIndex.current];
-      if (onNext) {
-        onNext(current, stepIndex.current);
-      }
-      setFocusedStep(stepIndex.current);
-      timeline.current = setTimeout(next, 250);
+    function onClock() {
+      focusedStep.current = (focusedStep.current + 1) % steps.length;
     }
-    if (timeline.current) {
-      clearTimeout(timeline.current);
-      next();
-    }
-    play.current = () => next();
-    stop.current = () => clearTimeout(timeline.current);
-  }, [onNext, track]);
+    document.addEventListener("clock", onClock);
+  }, [focusedStep, steps]);
 
   return (
     <div className="track-container">
-      <Toggle
-        labelOnTrue="pause"
-        labelOnFalse="play"
-        onToggle={status => {
-          if (!status) play.current();
-          else stop.current();
-        }}
-      />
+      <DirectionToggle onChange={value => console.log(value)} />
       {steps &&
         steps.map((value, i) => (
-          <Toggle
+          <NoteSlider
             key={i}
             defaultValue={value}
-            onToggle={toggleValue => {
-              let newTrack = [...track];
-              newTrack[i] = !track[i];
-              setTrack(newTrack);
+            onChange={value => {
+              let newSteps = [...steps];
+              newSteps[i] = value;
+              setSteps(newSteps);
             }}
-            focused={i === focusedStep}
+            focus={i === focusedStep}
           />
         ))}
     </div>
