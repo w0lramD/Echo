@@ -1,22 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 
 import DirectionToggle from "./toggles/DirectionToggle";
 import NoteSlider from "./sliders/NoteSlider";
 
-export default function Track({ defaultSteps }) {
+export default function Track({
+  defaultSteps,
+  currentStep,
+  onDirectionChange,
+  onNoteChange
+}) {
   const [steps, setSteps] = useState(defaultSteps);
-  const focusedStep = useRef(0);
-
-  useEffect(() => {
-    function onClock() {
-      focusedStep.current = (focusedStep.current + 1) % steps.length;
-    }
-    document.addEventListener("clock", onClock);
-  }, [focusedStep, steps]);
 
   return (
     <div className="track-container">
-      <DirectionToggle onChange={value => console.log(value)} />
+      <DirectionToggle onChange={value => onDirectionChange(value)} />
       {steps &&
         steps.map((value, i) => (
           <NoteSlider
@@ -26,8 +23,9 @@ export default function Track({ defaultSteps }) {
               let newSteps = [...steps];
               newSteps[i] = value;
               setSteps(newSteps);
+              onNoteChange(i, value);
             }}
-            focus={i === focusedStep}
+            focus={i === currentStep}
           />
         ))}
     </div>

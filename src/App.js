@@ -1,20 +1,21 @@
 import React from "react";
 import Track from "./components/Track";
+import Sequencer from "./components/Sequencer";
 import "./App.css";
 
-let clock = new Event("clock");
-function next() {
-  document.dispatchEvent(clock);
-  setTimeout(next, 100);
-}
-next();
+const track1 = [48, 48, 48, 48, 48, 48, 48, 48];
 
 function App() {
   return (
     <div className="App">
-      <Track
-        defaultSteps={[48, 48, 48, 48, 48, 48, 48, 48]}
-        onChange={console.log}
+      <Sequencer
+        components={[
+          <Track
+            defaultSteps={[...track1]}
+            onNoteChange={(i, value) => (track1[i] = value)}
+            onDirectionChange={console.log}
+          />
+        ]}
       />
     </div>
   );
