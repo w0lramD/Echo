@@ -3,21 +3,22 @@ import { midiToNoteName } from "@tonaljs/midi";
 import Slider from "./_Slider";
 import "./NoteSlider.css";
 
-function NoteSliderView({ value, focus }) {
+function NoteSliderView({ defaultValue, focus }) {
   return (
-    <div className={(focus && "note-slider focused") || "note-slider"}>
-      {midiToNoteName(value)}
+    <div className={(focus && "note-slider focus") || "note-slider"}>
+      {midiToNoteName(defaultValue)}
     </div>
   );
 }
 
-export default function NoteSlider({ onChange }) {
+export default function NoteSlider({ defaultValue, focus, onChange }) {
   return (
     <Slider
       min={0}
       max={127}
       step={1}
-      defaultValue={48}
+      defaultValue={defaultValue}
+      focus={focus}
       component={NoteSliderView}
       onChange={val => onChange(val)}
     />

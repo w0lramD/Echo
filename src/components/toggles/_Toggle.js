@@ -29,7 +29,7 @@ export default class Toggle extends React.Component {
           let { values } = this.props;
           let { currentValue } = this.state;
           this.setState({ currentValue: (currentValue + 1) % values.length });
-          this.props.onChange(values[currentValue]);
+          this.props.onChange(values[(currentValue + 1) % values.length]);
         }}
         onMouseOver={() => {
           if (this.state.clicking) {

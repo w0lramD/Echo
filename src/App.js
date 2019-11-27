@@ -8,15 +8,13 @@ const track1 = [48, 48, 48, 48, 48, 48, 48, 48];
 function App() {
   return (
     <div className="App">
-      <Sequencer
-        components={[
-          <Track
-            defaultSteps={[...track1]}
-            onNoteChange={(i, value) => (track1[i] = value)}
-            onDirectionChange={console.log}
-          />
-        ]}
-      />
+      <Sequencer>
+        <Track
+          defaultSteps={[...track1]}
+          defaultDirection={"→"}
+          onNextStep={() => {}}
+        />
+      </Sequencer>
     </div>
   );
 }

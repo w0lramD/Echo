@@ -17,7 +17,7 @@ function DirectionToggleView({ values, currentValue, focus }) {
 export default function DirectionToggle({ onChange }) {
   return (
     <Toggle
-      values={["→", "←", "↔", "«»", "?", "?!"]}
+      values={["→", "←", "↔", "?"]}
       component={DirectionToggleView}
       onChange={val => onChange(val)}
     />

@@ -1,30 +1,49 @@
 import React from "react";
+import PlayToggle from "./toggles/PlayToggle";
 
 export default class Sequencer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentStep: 0,
+      currentTime: 0,
+      playing: false,
       timeline: null
     };
   }
 
-  componentDidMount() {
-    this.setState({ timeline: this.clock() });
+  play() {
+    const clock = () => {
+      if (this.playing) {
+        this.setState({ currentTime: this.state.currentTime + 1 });
+        return setTimeout(clock, 100);
+      } else return null;
+    };
+    this.playing = true;
+    this.setState({ timeline: clock() });
   }
 
-  clock() {
-    this.setState({ currentStep: this.state.currentStep + 1 });
-    setTimeout(this.clock, 100);
+  stop() {
+    this.playing = false;
+    clearTimeout(this.state.currentTime);
+    this.setState({ currentTime: 0 });
   }
 
   render() {
+    const children = React.Children.map(this.props.children, child => {
+      return React.cloneElement(child, {
+        currentTime: this.state.currentTime
+      });
+    });
     return (
-      <React.Fragment>
-        {this.props.components.map((Component, i) => (
-          <Component key={i} currentStep={this.state.currentStep} />
-        ))}
-      </React.Fragment>
+      <div>
+        <PlayToggle
+          onChange={value => {
+            if (value === "►") this.play();
+            else if (value === "■") this.stop();
+          }}
+        />
+        {children}
+      </div>
     );
   }
 }
