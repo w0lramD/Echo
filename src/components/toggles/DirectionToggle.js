@@ -1,17 +1,9 @@
 import React from "react";
 import Toggle from "./_Toggle";
+import "./DirectionToggle.css";
 
 function DirectionToggleView({ values, currentValue, focus }) {
-  return (
-    <div
-      className={
-        (focus && "direction-toggle toggle focused") ||
-        "direction-toggle toggle"
-      }
-    >
-      {values[currentValue]}
-    </div>
-  );
+  return <div className="DirectionToggle">{values[currentValue]}</div>;
 }
 
 export default function DirectionToggle({ onChange }) {

@@ -1,5 +1,4 @@
 import React from "react";
-import "./_Toggle.css";
 
 export default class Toggle extends React.Component {
   constructor(props) {
@@ -24,7 +23,7 @@ export default class Toggle extends React.Component {
     const Component = this.props.component;
     return (
       <div
-        className="toggle-container"
+        style={{ userSelect: "none" }}
         onClick={() => {
           let { values } = this.props;
           let { currentValue } = this.state;

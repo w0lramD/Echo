@@ -1,5 +1,4 @@
 import React from "react";
-import "./_Slider.css";
 
 export default class Slider extends React.Component {
   constructor(props) {
@@ -51,7 +50,7 @@ export default class Slider extends React.Component {
     const Component = this.props.component;
     return (
       <div
-        className="slider"
+        style={{ userSelect: "none" }}
         onMouseDown={e => {
           this.clicking = true;
           this.originY = null;

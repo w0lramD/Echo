@@ -1,11 +1,12 @@
 import React from "react";
 import Toggle from "./_Toggle";
+import "./PlayToggle.css";
 
 function PlayToggleView({ values, currentValue, focus }) {
-  return <div className="play-toggle toggle">{values[currentValue]}</div>;
+  return <div className="PlayToggle">{values[currentValue]}</div>;
 }
 
-export default function DirectionToggle({ onChange }) {
+export default function PlayToggle({ onChange }) {
   return (
     <Toggle
       values={["■", "►"]}

@@ -1,5 +1,6 @@
 import React from "react";
 import PlayToggle from "./toggles/PlayToggle";
+import "./Sequencer.css";
 
 export default class Sequencer extends React.Component {
   constructor(props) {
@@ -35,7 +36,7 @@ export default class Sequencer extends React.Component {
       });
     });
     return (
-      <div>
+      <div className="Sequencer">
         <PlayToggle
           onChange={value => {
             if (value === "►") this.play();

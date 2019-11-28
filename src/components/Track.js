@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-
 import DirectionToggle from "./toggles/DirectionToggle";
 import NoteSlider from "./sliders/NoteSlider";
+import "./Track.css";
 
 export default function Track({
   currentTime,
@@ -29,7 +29,7 @@ export default function Track({
   }, [currentTime, direction, onNextStep, steps.length]);
 
   return (
-    <div className="track-container">
+    <div className="Track">
       <DirectionToggle onChange={value => setDirection(value)} />
       {steps &&
         steps.map((value, i) => (

@@ -5,7 +5,7 @@ import "./NoteSlider.css";
 
 function NoteSliderView({ defaultValue, focus }) {
   return (
-    <div className={(focus && "note-slider focus") || "note-slider"}>
+    <div className={(focus && "NoteSlider focus") || "NoteSlider"}>
       {midiToNoteName(defaultValue)}
     </div>
   );

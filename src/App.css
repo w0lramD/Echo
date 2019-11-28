@@ -1,46 +1,5 @@
 .App {
-  text-align: center;
-  fotn-size: 9pt;
-  height: 50vh;
-}
-
-.sequencer-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-.porb-steps-container {
-  display: flex;
-}
-
-.inliner {
-  display: flex;
-  flex-direction: row;
-}
-
-.prob-tracks-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.midi-nn,
-.echo {
-  color: #fff;
-  font-family: monospace;
-  font-size: 11px;
-}
-
-.midi-nn {
-  border: 1px dotted white;
-  margin: 20px 0px 0px 20px;
-}
-
-.echo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 27px;
+  font-family: "Titillium Web", sans-serif;
+  background: #121212;
+  color: #ffff;
 }

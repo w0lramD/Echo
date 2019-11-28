@@ -1,19 +1,15 @@
 body {
   margin: 0;
-  font-family: monospace;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow: hidden;
+  box-sizing: border-box;
+}
+
+#root {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-}
-
-#visual {
-  margin-top: 100px;
-  height: 50vh;
-  max-height: 360px;
-  width: 50vh;
-  max-width: 360px;
+  height: 100vh;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #121212;
 }

@@ -1,8 +1,7 @@
-.toggle {
+.PlayToggle {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30px;
-  height: 30px;
-  user-select: none;
+  width: 60px;
+  height: 60px;
 }
