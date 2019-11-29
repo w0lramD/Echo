@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import DirectionToggle from "./toggles/DirectionToggle";
 import NoteSlider from "./sliders/NoteSlider";
+import DelaySlider from "./sliders/DelaySlider";
 import "./Track.css";
 
 export default function Track({
@@ -44,6 +45,7 @@ export default function Track({
             focus={i === step.current}
           />
         ))}
+      <DelaySlider onChange={() => {}} />
     </div>
   );
 }
