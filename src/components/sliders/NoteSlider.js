@@ -3,10 +3,10 @@ import { midiToNoteName } from "@tonaljs/midi";
 import Slider from "./_Slider";
 import "./NoteSlider.css";
 
-function NoteSliderView({ defaultValue, focus }) {
+function NoteSliderView({ value, focus }) {
   return (
     <div className={(focus && "NoteSlider focus") || "NoteSlider"}>
-      {midiToNoteName(defaultValue)}
+      {midiToNoteName(value)}
     </div>
   );
 }

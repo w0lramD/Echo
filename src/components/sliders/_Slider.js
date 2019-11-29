@@ -56,7 +56,7 @@ export default class Slider extends React.Component {
           this.originY = null;
         }}
       >
-        <Component value={this.state.value} {...this.props} />
+        <Component value={this.state.value} focus={this.props.focus} />
       </div>
     );
   }
