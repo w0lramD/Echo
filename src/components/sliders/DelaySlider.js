@@ -8,7 +8,7 @@ function DelaySliderView({ value, focus }) {
     const cnv = canvas.current;
     const ctx = cnv.getContext("2d");
     ctx.strokeStyle = "white";
-    let r = 30 * value;
+    let r = 30 * value + 5;
     ctx.clearRect(0, 0, cnv.width, cnv.height);
     ctx.beginPath();
     while (r > 0) {
