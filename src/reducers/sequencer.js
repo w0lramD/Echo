@@ -4,9 +4,9 @@ const sequencerActions = (state, action) => {
       let { bpm } = action;
       return { ...state, bpm };
 
-    case "SET_BEAT":
-      let { beat } = action;
-      return { ...state, beat };
+    case "SET_BEATS":
+      let { beats } = action;
+      return { ...state, beats };
 
     case "SET_TRACK":
       let { id, steps, direction } = action;

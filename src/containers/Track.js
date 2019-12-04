@@ -11,25 +11,32 @@ let Track = ({ dispatch, id, defSteps }) => {
     dispatch(setTrack(id, defSteps, "→"));
   }, [dispatch, id, defSteps]);
 
-  const steps = useSelector(
-    state => state.tracks && state.track[id] && state.tracks[id].steps
-  );
-  const direction = useSelector(
-    state => state.tracks && state.track[id] && state.tracks[id].direction
-  );
+  const steps = useSelector(state => {
+    let seq = state.sequencer;
+    return seq.tracks && seq.tracks[id] && seq.tracks[id].steps;
+  });
+
+  const direction = useSelector(state => {
+    let seq = state.sequencer;
+    return seq.tracks && seq.tracks[id] && seq.tracks[id].direction;
+  });
+
+  const currentTime = useSelector(state => {
+    let seq = state.sequencer;
+    return seq.currentTime && seq.currentTime;
+  });
 
   const step = useRef(null);
-  const currentTime = useSelector(state => state.currentTime || 0);
   useEffect(() => {
     if (steps && direction) {
       let stepPos = currentTime % steps.length;
       if (direction === "←") {
-        stepPos = steps.length - step - 1;
+        stepPos = steps.length - stepPos - 1;
       } else if (direction === "?") {
         stepPos = Math.floor(Math.random() * steps.length);
       } else if (direction === "↔") {
-        stepPos = currentTime % (steps.length * 2 - 1);
-        if (stepPos > steps.length - 2 && stepPos < steps.length * 2 - 1) {
+        stepPos = currentTime % (steps.length * 2);
+        if (stepPos >= steps.length) {
           stepPos = steps.length - (stepPos % steps.length) - 1;
         }
       }

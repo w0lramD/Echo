@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import sequencerActions from "./sequencer";
-import synthActions from "./synth";
+import sequencer from "./sequencer";
+import synth from "./synth";
 
 export default combineReducers({
-  synthActions,
-  sequencerActions
+  synth,
+  sequencer
 });

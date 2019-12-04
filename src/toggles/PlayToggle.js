@@ -16,7 +16,7 @@ export default function PlayToggle({ onChange }) {
     <Toggle
       values={["isNotPlaying", "isPlaying"]}
       component={PlayToggleView}
-      onChange={val => onChange(val)}
+      onChange={val => onChange(val === "isPlaying" ? true : false)}
     />
   );
 }

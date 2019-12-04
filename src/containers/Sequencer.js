@@ -1,15 +1,20 @@
 import React, { useEffect } from "react";
 import { connect, useSelector } from "react-redux";
-import { play, stop, incCurrentTime, setBpm } from "../actions";
+import { play, stop, incCurrentTime, setBpm, setBeats } from "../actions";
 import PlayToggle from "../toggles/PlayToggle";
 import BpmSlider from "../sliders/BpmSlider";
 import "./Sequencer.css";
 
 let timeout;
-let Sequencer = ({ dispatch, children }) => {
-  const playing = useSelector(state => state.playing && state.playing);
-  const bpm = useSelector(state => state.bpm && state.bpm);
-  const beats = useSelector(state => state.beats && state.beats);
+let Sequencer = ({ dispatch, children, defBpm, defBeats }) => {
+  useEffect(() => {
+    dispatch(setBpm(defBpm));
+    dispatch(setBeats(defBeats));
+  }, [defBeats, defBpm, dispatch]);
+
+  const playing = useSelector(state => state.sequencer.playing);
+  const bpm = useSelector(state => state.sequencer.bpm);
+  const beats = useSelector(state => state.sequencer.beats);
   useEffect(() => {
     function clock() {
       if (playing) {
@@ -29,6 +34,7 @@ let Sequencer = ({ dispatch, children }) => {
       <div className="controls">
         <PlayToggle
           onChange={playing => {
+            console.log(playing);
             if (playing) dispatch(play());
             else dispatch(stop());
           }}

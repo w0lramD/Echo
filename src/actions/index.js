@@ -3,9 +3,9 @@ export const setBpm = bpm => ({
   bpm
 });
 
-export const setBeat = beat => ({
-  type: "SET_BEAT",
-  beat
+export const setBeats = beats => ({
+  type: "SET_BEATS",
+  beats
 });
 
 export const setTrack = (id, steps, direction) => ({
