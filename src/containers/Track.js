@@ -1,44 +1,56 @@
-import React, { useState, useEffect, useRef } from "react";
-import DirectionToggle from "../components/toggles/DirectionToggle";
-import NoteSlider from "../components/sliders/NoteSlider";
-import DelaySlider from "../components/sliders/DelaySlider";
-import { connect } from "react-redux";
-import { getCurrentTime } from "../actions";
+import React, { useEffect, useRef } from "react";
+import { connect, useSelector } from "react-redux";
+import { setTrack } from "../actions";
+import DirectionToggle from "../toggles/DirectionToggle";
+import NoteSlider from "../sliders/NoteSlider";
+import DelaySlider from "../sliders/DelaySlider";
 import "./Track.css";
 
-const Track = ({ defaultSteps, defaultDirection, dispatch }) => {
-  const [steps, setSteps] = useState(defaultSteps);
-  const [direction, setDirection] = useState(defaultDirection);
-
-  const step = useRef(0);
+let Track = ({ dispatch, id, defSteps }) => {
   useEffect(() => {
-    let currentTime = dispatch(getCurrentTime());
-    step.current = currentTime % steps.length;
-    if (direction === "←") {
-      step.current = steps.length - step.current - 1;
-    } else if (direction === "?") {
-      step.current = Math.floor(Math.random() * steps.length);
-    } else if (direction === "↔") {
-      let pos = currentTime % (steps.length * 2 - 1);
-      if (pos > steps.length - 2 && pos < steps.length * 2 - 1) {
-        step.current = steps.length - (pos % steps.length) - 1;
+    dispatch(setTrack(id, defSteps, "→"));
+  }, [dispatch, id, defSteps]);
+
+  const steps = useSelector(
+    state => state.tracks && state.track[id] && state.tracks[id].steps
+  );
+  const direction = useSelector(
+    state => state.tracks && state.track[id] && state.tracks[id].direction
+  );
+
+  const step = useRef(null);
+  const currentTime = useSelector(state => state.currentTime || 0);
+  useEffect(() => {
+    if (steps && direction) {
+      let stepPos = currentTime % steps.length;
+      if (direction === "←") {
+        stepPos = steps.length - step - 1;
+      } else if (direction === "?") {
+        stepPos = Math.floor(Math.random() * steps.length);
+      } else if (direction === "↔") {
+        stepPos = currentTime % (steps.length * 2 - 1);
+        if (stepPos > steps.length - 2 && stepPos < steps.length * 2 - 1) {
+          stepPos = steps.length - (stepPos % steps.length) - 1;
+        }
       }
+      step.current = stepPos;
     }
-    if (step.current) dispatch(steps[step.current]);
-  }, [direction, dispatch, steps, steps.length]);
+  }, [currentTime, direction, steps]);
 
   return (
     <div className="Track">
-      <DirectionToggle onChange={value => setDirection(value)} />
+      <DirectionToggle
+        onChange={direction => dispatch(setTrack(id, steps, direction))}
+      />
       {steps &&
         steps.map((value, i) => (
           <NoteSlider
             key={i}
             defaultValue={value}
-            onChange={value => {
+            onChange={stepValue => {
               let newSteps = [...steps];
-              newSteps[i] = value;
-              setSteps(newSteps);
+              newSteps[i] = stepValue;
+              dispatch(setTrack(id, newSteps, direction));
             }}
             focus={i === step.current}
           />
