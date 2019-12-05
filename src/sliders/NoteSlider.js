@@ -20,7 +20,7 @@ export default function NoteSlider({ defaultValue, focus, onChange }) {
       defaultValue={defaultValue}
       focus={focus}
       component={NoteSliderView}
-      onChange={val => onChange(val)}
+      onChange={val => onChange(midiToNoteName(val))}
     />
   );
 }

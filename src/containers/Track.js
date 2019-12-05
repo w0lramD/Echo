@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { connect, useSelector } from "react-redux";
 import { setTrack } from "../actions";
+import Synth from "./Synth";
 import DirectionToggle from "../toggles/DirectionToggle";
 import NoteSlider from "../sliders/NoteSlider";
 import DelaySlider from "../sliders/DelaySlider";
@@ -10,6 +11,11 @@ let Track = ({ dispatch, id, defSteps }) => {
   useEffect(() => {
     dispatch(setTrack(id, defSteps, "→"));
   }, [dispatch, id, defSteps]);
+
+  const playing = useSelector(state => {
+    let seq = state.sequencer;
+    return seq.playing && seq.playing;
+  });
 
   const steps = useSelector(state => {
     let seq = state.sequencer;
@@ -46,6 +52,11 @@ let Track = ({ dispatch, id, defSteps }) => {
 
   return (
     <div className="Track">
+      <Synth
+        trigger={playing && currentTime}
+        note={steps && steps[step.current]}
+        volume={-6}
+      />
       <DirectionToggle
         onChange={direction => dispatch(setTrack(id, steps, direction))}
       />

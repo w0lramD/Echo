@@ -39,7 +39,10 @@ let Sequencer = ({ dispatch, children, defBpm, defBeats }) => {
             else dispatch(stop());
           }}
         />
-        <BpmSlider onChange={bpm => dispatch(setBpm(bpm))} />
+        <BpmSlider
+          defaultValue={defBpm}
+          onChange={bpm => dispatch(setBpm(bpm))}
+        />
       </div>
       {children}
     </div>
