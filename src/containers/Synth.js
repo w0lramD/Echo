@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import Tone from "tone";
 
-let Synth = ({ dispatch, trigger, note, volume, delay }) => {
+let Synth = () => {
   const synth = useRef(null);
   useEffect(() => {
     synth.current = new Tone.PolySynth(12, Tone.AMSynth, {
@@ -31,21 +32,31 @@ let Synth = ({ dispatch, trigger, note, volume, delay }) => {
     synth.current.connect(rev);
   }, []);
 
-  const _note = useRef(null);
-  const _volume = useRef(null);
-  const _delay = useRef(null);
-  useEffect(() => {
-    _note.current = note;
-    _volume.current = volume;
-    _delay.current = delay;
-  }, [delay, note, volume]);
+  const current = useSelector(state => {
+    let seq = state.sequencer;
+    return {
+      note:
+        seq.tracks &&
+        seq.tracks["note"].currentStep &&
+        seq.tracks["note"] &&
+        seq.tracks["note"][seq.tracks["note"].currentStep],
+      waveform:
+        seq.tracks &&
+        seq.tracks["wf"].currentStep &&
+        seq.tracks["wf"] &&
+        seq.tracks["wf"][seq.tracks["wf"].currentStep]
+    };
+  });
 
   useEffect(() => {
-    if (_note.current && _volume.current) {
-      synth.current.volume.value = _volume.current;
-      synth.current.triggerAttackRelease(_note.current, 0.01);
+    if (current) {
+      console.log(current);
+      if (current.note && current.waveform) {
+        synth.current.modulationType = current.waveform;
+        synth.current.triggerAttackRelease(current.note, 0.01);
+      }
     }
-  }, [trigger]);
+  }, [current]);
 
   return <></>;
 };

@@ -1,22 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { connect, useSelector } from "react-redux";
-import { setTrack } from "../actions";
-import Synth from "./Synth";
+import { setTrack, setTrackCurrentStep } from "../actions";
 import DirectionToggle from "../toggles/DirectionToggle";
-import NoteSlider from "../sliders/NoteSlider";
-import DelaySlider from "../sliders/DelaySlider";
 import "./Track.css";
 
-let Track = ({ dispatch, id, defSteps }) => {
-  useEffect(() => {
-    dispatch(setTrack(id, defSteps, "→"));
-  }, [dispatch, id, defSteps]);
-
-  const playing = useSelector(state => {
-    let seq = state.sequencer;
-    return seq.playing && seq.playing;
-  });
-
+let Track = ({ dispatch, id, component }) => {
   const steps = useSelector(state => {
     let seq = state.sequencer;
     return seq.tracks && seq.tracks[id] && seq.tracks[id].steps;
@@ -27,42 +15,40 @@ let Track = ({ dispatch, id, defSteps }) => {
     return seq.tracks && seq.tracks[id] && seq.tracks[id].direction;
   });
 
-  const currentTime = useSelector(state => {
-    let seq = state.sequencer;
-    return seq.currentTime && seq.currentTime;
-  });
-
-  const step = useRef(null);
-  useEffect(() => {
+  const currentStep = useSelector(state => {
+    let track = state.sequencer.tracks[id];
+    let { steps, direction } = track;
     if (steps && direction) {
-      let stepPos = currentTime % steps.length;
+      let currentStep = state.sequencer.currentTime % steps.length;
       if (direction === "←") {
-        stepPos = steps.length - stepPos - 1;
+        currentStep = steps.length - currentStep - 1;
       } else if (direction === "?") {
-        stepPos = Math.floor(Math.random() * steps.length);
+        currentStep = Math.floor(Math.random() * steps.length);
       } else if (direction === "↔") {
-        stepPos = currentTime % (steps.length * 2);
-        if (stepPos >= steps.length) {
-          stepPos = steps.length - (stepPos % steps.length) - 1;
+        currentStep = state.sequencer.currentTime % (steps.length * 2);
+        if (currentStep >= steps.length) {
+          currentStep = steps.length - (currentStep % steps.length) - 1;
         }
       }
-      step.current = stepPos;
-    }
-  }, [currentTime, direction, steps]);
 
+      return currentStep;
+    } else return null;
+  });
+
+  useEffect(() => {
+    dispatch(setTrackCurrentStep(id, currentStep));
+  }, [currentStep, dispatch, id]);
+
+  const Component = component;
   return (
     <div className="Track">
-      <Synth
-        trigger={playing && currentTime}
-        note={steps && steps[step.current]}
-        volume={-6}
-      />
       <DirectionToggle
+        currentValue={direction}
         onChange={direction => dispatch(setTrack(id, steps, direction))}
       />
       {steps &&
         steps.map((value, i) => (
-          <NoteSlider
+          <Component
             key={i}
             defaultValue={value}
             onChange={stepValue => {
@@ -70,10 +56,9 @@ let Track = ({ dispatch, id, defSteps }) => {
               newSteps[i] = stepValue;
               dispatch(setTrack(id, newSteps, direction));
             }}
-            focus={i === step.current}
+            focus={i === currentStep}
           />
         ))}
-      <DelaySlider onChange={() => {}} />
     </div>
   );
 };

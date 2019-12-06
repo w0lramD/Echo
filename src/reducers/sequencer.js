@@ -1,19 +1,25 @@
 const sequencerActions = (state, action) => {
+  let tracks;
   switch (action.type) {
     case "SET_BPM":
-      let { bpm } = action;
-      return { ...state, bpm };
+      return { ...state, bpm: action.bpm };
 
     case "SET_BEATS":
-      let { beats } = action;
-      return { ...state, beats };
+      return { ...state, beats: action.beats };
 
     case "SET_TRACK":
-      let { id, steps, direction } = action;
-      let tracks = { ...state.tracks };
-      if (!tracks[id]) tracks[id] = {};
-      tracks[id].steps = steps;
-      tracks[id].direction = direction;
+      tracks = { ...state.tracks };
+      if (!tracks[action.id]) tracks[action.id] = {};
+      tracks[action.id].steps = action.steps;
+      tracks[action.id].direction = action.direction;
+      tracks[action.id].currentStep = null;
+      return { ...state, tracks };
+
+    case "SET_TRACK_CURRENT_STEP":
+      tracks = { ...state.tracks };
+      if (tracks[action.id]) {
+        tracks[action.id].currentStep = action.currentStep;
+      }
       return { ...state, tracks };
 
     case "PLAY":

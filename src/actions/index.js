@@ -15,6 +15,12 @@ export const setTrack = (id, steps, direction) => ({
   direction
 });
 
+export const setTrackCurrentStep = (id, currentStep) => ({
+  type: "SET_TRACK_CURRENT_STEP",
+  id,
+  currentStep
+});
+
 export const play = () => ({
   type: "PLAY"
 });

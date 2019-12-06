@@ -1,0 +1,16 @@
+{
+  "sequencer": {
+    "bpm": 120,
+    "beats": 4,
+    "tracks": {
+      "note": {
+        "steps": [48, 48, 48, 48],
+        "direction": "→"
+      },
+      "mod": {
+        "steps": [0, 0, 0, 0],
+        "direction": "→"
+      }
+    }
+  }
+}
