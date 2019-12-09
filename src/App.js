@@ -11,12 +11,11 @@ function App() {
     <div className="App">
       <Sequencer>
         <Track id="note" component={NoteSlider} />
-        <Track id="mod" component={WaveformToggle} />
+        <Track id="modulationType" component={WaveformToggle} />
       </Sequencer>
+      <Synth />
     </div>
   );
 }
 
 export default App;
-
-//<Synth />
