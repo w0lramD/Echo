@@ -1,55 +1,34 @@
-import React, { useEffect } from "react";
-import { connect, useSelector } from "react-redux";
-import { play, stop, incCurrentTime, setBpm } from "../actions";
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { setBpm } from "../actions";
 import PlayToggle from "../toggles/PlayToggle";
 import BpmSlider from "../sliders/BpmSlider";
 import "./Sequencer.css";
 
-let timeout, _bpm, _beats;
-let Sequencer = ({ dispatch, children }) => {
-  const playing = useSelector(state => state.sequencer.playing);
-  const bpm = useSelector(state => {
-    _bpm = state.sequencer.bpm;
-    return _bpm;
-  });
-  const beats = useSelector(state => {
-    _beats = state.sequencer.beats;
-    return _beats;
-  });
-
-  useEffect(() => {
-    function clock() {
-      if (playing) {
-        dispatch(incCurrentTime());
-        const time = (60 * 1000) / _bpm / _beats;
-        timeout = setTimeout(clock, time);
-      }
-    }
-    if (playing) {
-      clearTimeout(timeout);
-      timeout = clock();
-    } else clearTimeout(timeout);
-  }, [playing, dispatch]);
-
+let Sequencer = ({ children, tracks, bpm, onBpmChange }) => {
+  const [playing, setPlaying] = useState(false);
   return (
     <div className="Sequencer">
       <div className="controls">
-        <PlayToggle
-          onChange={playing => {
-            if (playing) dispatch(play());
-            else dispatch(stop());
-          }}
-        />
-        {beats}/{beats}
-        <BpmSlider
-          defaultValue={bpm}
-          onChange={newBpm => dispatch(setBpm(newBpm))}
-        />
+        <PlayToggle value={playing} onChange={() => setPlaying(!playing)} />
+        <BpmSlider value={bpm} onChange={newBpm => onBpmChange(newBpm)} />
       </div>
       {children}
     </div>
   );
 };
-Sequencer = connect()(Sequencer);
+
+Sequencer = connect(
+  state => {
+    const { bpm } = state.sequencer;
+    return { bpm };
+  },
+  dispatch => {
+    const onBpmChange = newBpm => {
+      dispatch(setBpm(newBpm));
+    };
+    return { onBpmChange };
+  }
+)(Sequencer);
 
 export default Sequencer;
