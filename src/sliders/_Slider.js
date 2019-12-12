@@ -7,7 +7,7 @@ export default class Slider extends React.Component {
     this.originY = null;
     this.frameCount = 0;
     this.state = {
-      value: props.defaultValue || 0
+      value: props.value || 0
     };
   }
 
@@ -29,34 +29,42 @@ export default class Slider extends React.Component {
   }
 
   incrementValue() {
-    let newValue;
-    newValue = Math.round((this.state.value + this.props.step) * 100) / 100;
-    if (newValue <= this.props.max && newValue >= this.props.min) {
-      this.setState({ value: newValue });
-      this.props.onChange(newValue);
+    let { value } = this.state;
+    let { step, min, max } = this.props;
+    value = Math.round((value + step) * 100) / 100;
+    if (value <= max && value >= min) {
+      this.setState({ value });
+      this.props.onChange(value);
     }
   }
 
   decrementValue() {
-    let newValue;
-    newValue = Math.round((this.state.value - this.props.step) * 100) / 100;
-    if (newValue <= this.props.max && newValue >= this.props.min) {
-      this.setState({ value: newValue });
-      this.props.onChange(newValue);
+    let { value } = this.state;
+    let { step, min, max } = this.props;
+    value = Math.round((value - step) * 100) / 100;
+    if (value <= max && value >= min) {
+      this.setState({ value });
+      this.props.onChange(value);
     }
   }
 
+  compoenntDidUpdate(prevProps) {
+    if (this.props.value !== prevProps.value)
+      if (this.props.value !== this.state.value)
+        this.setState({ value: this.props.value });
+  }
+
   render() {
-    const Component = this.props.component;
+    const View = this.props.View;
     return (
       <div
         style={{ userSelect: "none" }}
-        onMouseDown={e => {
+        onMouseDown={() => {
           this.clicking = true;
           this.originY = null;
         }}
       >
-        <Component value={this.state.value} focus={this.props.focus} />
+        <View value={this.state.value} focus={this.props.focus} />
       </div>
     );
   }

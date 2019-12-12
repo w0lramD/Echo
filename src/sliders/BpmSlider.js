@@ -10,16 +10,16 @@ function BpmSliderView({ value, focus }) {
   );
 }
 
-export default function BpmSlider({ defaultValue, focus, onChange }) {
+export default function BpmSlider({ value, focus, onChange }) {
   return (
     <Slider
+      View={BpmSliderView}
+      value={value}
       min={20}
       max={250}
       step={1}
-      defaultValue={defaultValue}
       focus={focus}
-      component={BpmSliderView}
-      onChange={val => onChange(val)}
+      onChange={newValue => onChange(newValue)}
     />
   );
 }

@@ -29,13 +29,15 @@ function DelaySliderView({ value, focus }) {
   );
 }
 
-export default function DelaySlider({ onChange }) {
+export default function DelaySlider({ value, focus, onChange }) {
   return (
     <Slider
+      View={DelaySliderView}
+      value={value}
       min={0}
       max={1}
       step={0.1}
-      component={DelaySliderView}
+      focus={focus}
       onChange={val => onChange(val)}
     />
   );
