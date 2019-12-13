@@ -6,7 +6,7 @@ export default class Toggle extends React.Component {
     this.clicking = false;
     this.frameCount = 0;
     this.state = {
-      currentValue: props.defaultValue || 0
+      value: props.value || 0
     };
   }
 
@@ -19,16 +19,23 @@ export default class Toggle extends React.Component {
     );
   }
 
+  compoenntDidUpdate(prevProps) {
+    if (this.props.value !== prevProps.value)
+      if (this.props.value !== this.state.value)
+        this.setState({ value: this.props.value });
+  }
+
   render() {
-    const Component = this.props.component;
+    const View = this.props.View;
     return (
       <div
         style={{ userSelect: "none" }}
         onClick={() => {
-          let { values } = this.props;
-          let { currentValue } = this.state;
-          this.setState({ currentValue: (currentValue + 1) % values.length });
-          this.props.onChange(values[(currentValue + 1) % values.length]);
+          let { labels } = this.props;
+          let { value } = this.state;
+          value = (value + 1) % labels.length;
+          this.setState({ value });
+          this.props.onChange(value);
         }}
         onMouseOver={() => {
           if (this.state.clicking) {
@@ -36,9 +43,10 @@ export default class Toggle extends React.Component {
           }
         }}
       >
-        <Component
-          currentValue={this.state.currentValue}
-          values={this.props.values}
+        <View
+          value={this.state.value}
+          labels={this.props.labels}
+          focus={this.props.focus}
         />
       </div>
     );

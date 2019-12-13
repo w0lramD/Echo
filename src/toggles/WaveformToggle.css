@@ -7,7 +7,7 @@
   width: 60px;
   height: 60px;
   margin: 10px;
-  clip-path: circle(40% at 50% 50%);
+  clip-path: circle(30% at 50% 38%);
   transition: background-color 0.1s;
   object-fit: cover;
 }
@@ -16,11 +16,16 @@
   width: 80px;
   height: 80px;
   transform: translate(30, 10);
+  clip-path: circle(15% at 50% 40%);
   filter: invert(100%);
 }
 
 .WaveformToggle.focus {
   color: #212121;
   background-color: #1db954;
-  clip-path: circle(24.6% at 50% 50%);
+  clip-path: circle(24.6% at 50% 38%);
+}
+
+.WaveformToggle.focus img {
+  filter: invert(0%);
 }

@@ -2,16 +2,24 @@ import React from "react";
 import Toggle from "./_Toggle";
 import "./DirectionToggle.css";
 
-function DirectionToggleView({ values, currentValue, focus }) {
-  return <div className="DirectionToggle">{values[currentValue]}</div>;
+function DirectionToggleView({ labels, value, focus }) {
+  return (
+    <div className="DirectionToggle">
+      {(labels[value] === "forwards" && "→") ||
+        (labels[value] === "backwards" && "←") ||
+        (labels[value] === "circular" && "↔") ||
+        (labels[value] === "random" && "?")}
+    </div>
+  );
 }
 
-export default function DirectionToggle({ onChange }) {
+export default function DirectionToggle({ value, focus, onChange }) {
   return (
     <Toggle
-      values={["→", "←", "↔", "?"]}
-      component={DirectionToggleView}
-      onChange={val => onChange(val)}
+      View={DirectionToggleView}
+      labels={["forwards", "backwards", "circular", "random"]}
+      value={value}
+      onChange={newValue => onChange(newValue)}
     />
   );
 }

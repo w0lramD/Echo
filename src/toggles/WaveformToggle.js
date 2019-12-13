@@ -2,23 +2,22 @@ import React from "react";
 import Toggle from "./_Toggle";
 import "./WaveformToggle.css";
 
-function WaveformToggleView({ values, currentValue, focus }) {
+function WaveformToggleView({ labels, value, focus }) {
   return (
     <div className={(focus && "WaveformToggle focus") || "WaveformToggle"}>
-      <img
-        src={"/icons/" + values[currentValue] + ".svg"}
-        alt={values[currentValue]}
-      />
+      <img src={"/icons/" + labels[value] + ".svg"} alt={labels[value]} />
     </div>
   );
 }
 
-export default function WaveformToggle({ onChange }) {
+export default function WaveformToggle({ value, focus, onChange }) {
   return (
     <Toggle
-      values={["sine", "square", "triangle", "sawtooth"]}
-      component={WaveformToggleView}
-      onChange={val => onChange(val)}
+      View={WaveformToggleView}
+      labels={["sine", "square", "triangle", "sawtooth"]}
+      value={value}
+      focus={focus}
+      onChange={newValue => onChange(newValue)}
     />
   );
 }
