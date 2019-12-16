@@ -1,62 +1,47 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import Tone from "tone";
+import { PolySynth, AMSynth, Freeverb } from "tone";
 
 let Synth = () => {
-  const synth = useRef(null);
+  const rev = useRef(new Freeverb(0.8, 1000).toMaster());
   useEffect(() => {
-    synth.current = new Tone.PolySynth(12, Tone.AMSynth, {
-      harmonicity: 3,
-      detune: 0,
-      oscillator: {
-        type: "pulse"
-      },
-      envelope: {
-        attack: 0.1,
-        decay: 0.01,
-        sustain: 1,
-        release: 0.2
-      },
-      modulation: {
-        type: "sine"
-      },
-      modulationEnvelope: {
-        attack: 0.1,
-        decay: 0.1,
-        sustain: 0.3,
-        release: 0.1
-      }
-    });
-    const rev = new Tone.Freeverb(0.8, 1000).toMaster();
-    rev.wet.value = 0.5;
-    synth.current.connect(rev);
+    rev.current.wet.value = 0.5;
   }, []);
 
-  const current = useSelector(state => {
+  const synthState = useSelector(state => state.synth);
+  const synth = useRef(
+    new PolySynth(12, AMSynth, synthState).connect(rev.current)
+  );
+  useEffect(() => {
+    synth.current.set(synthState);
+  }, [synthState]);
+
+  const currentStep = useSelector(state => {
     let seq = state.sequencer;
     return {
       note:
         seq.tracks &&
-        seq.tracks["note"].currentStep &&
         seq.tracks["note"] &&
-        seq.tracks["note"][seq.tracks["note"].currentStep],
-      waveform:
+        seq.tracks["note"].currentStep &&
+        seq.tracks["note"].steps &&
+        seq.tracks["note"].steps[seq.tracks["note"].currentStep],
+      mod:
         seq.tracks &&
-        seq.tracks["wf"].currentStep &&
-        seq.tracks["wf"] &&
-        seq.tracks["wf"][seq.tracks["wf"].currentStep]
+        seq.tracks["mod"] &&
+        seq.tracks["mod"].currentStep &&
+        seq.tracks["mod"].steps &&
+        seq.tracks["mod"].steps[seq.tracks["mod"].currentStep]
     };
   });
 
   useEffect(() => {
-    if (current) {
-      console.log(current);
-      if (current.note && current.waveform) {
-        synth.current.modulationType = current.waveform;
-        synth.current.triggerAttackRelease(current.note, 0.01);
+    if (currentStep) {
+      if (currentStep.note && Number.isInteger(currentStep.mod)) {
+        if (currentStep.mod) synth.current.modulationType = "sine";
+        synth.current.triggerAttackRelease(currentStep.note, 0.01);
       }
     }
-  }, [current]);
+  }, [currentStep]);
 
   return <></>;
 };
