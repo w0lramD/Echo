@@ -16,3 +16,8 @@ export const setDirection = (id, direction) => ({
   id,
   direction
 });
+
+export const setTime = time => ({
+  type: constants.SET_TIME,
+  time
+});

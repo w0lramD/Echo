@@ -1,5 +1,4 @@
 import React from "react";
-import Track from "./containers/Track";
 import Sequencer from "./containers/Sequencer";
 import Synth from "./containers/Synth";
 import NoteSlider from "./sliders/NoteSlider";
@@ -9,10 +8,13 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
-      <Sequencer>
-        <Track id="note" component={NoteSlider} />
-        <Track id="modulationType" component={WaveformToggle} />
-      </Sequencer>
+      <Sequencer
+        id="echo"
+        tracks={[
+          { id: "note", component: NoteSlider },
+          { id: "modulationType", component: WaveformToggle }
+        ]}
+      />
       <Synth />
     </div>
   );

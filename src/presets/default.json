@@ -23,7 +23,6 @@
   },
   "sequencer": {
     "bpm": 120,
-    "beats": 4,
     "tracks": {
       "note": {
         "steps": [48, 48, 48, 48],

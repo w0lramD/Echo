@@ -1,11 +1,11 @@
-import React from "react";
-import { connect, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { setSteps, setDirection } from "../actions";
 import DirectionToggle from "../toggles/DirectionToggle";
 import "./Track.css";
 
-const getCurrentStep = (steps, direction, time) => {
-  if (steps && direction !== undefined) {
+const getCurrentStep = (playing, steps, direction, time) => {
+  if (playing && steps && direction !== undefined) {
     let currentStep = time % steps.length; //forwards
     if (direction === "backwards") {
       currentStep = steps.length - currentStep - 1;
@@ -22,12 +22,8 @@ const getCurrentStep = (steps, direction, time) => {
 };
 
 let Track = props => {
-  let { id, tracks } = props;
+  let { playing, time, id, tracks } = props;
   let { steps, direction } = tracks[id];
-
-  const time = useSelector(
-    state => state.sequencer.time && state.sequencer.time
-  );
 
   const Component = props.component;
   let { onStepsChange, onDirectionChange } = props;
@@ -47,7 +43,7 @@ let Track = props => {
               newSteps[i] = stepValue;
               onStepsChange(id, newSteps);
             }}
-            focus={i === getCurrentStep(steps, direction, time)}
+            focus={i === getCurrentStep(playing, steps, direction, time)}
           />
         ))}
     </div>
@@ -56,8 +52,8 @@ let Track = props => {
 
 Track = connect(
   state => {
-    const { tracks } = state.sequencer;
-    return { tracks };
+    const { tracks, time } = state.sequencer;
+    return { tracks, time };
   },
   dispatch => {
     const onStepsChange = (id, newSteps) => {
