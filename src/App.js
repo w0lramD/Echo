@@ -14,8 +14,8 @@ function App() {
           { id: "note", component: NoteSlider },
           { id: "modulationType", component: WaveformToggle }
         ]}
+        synth={Synth}
       />
-      <Synth />
     </div>
   );
 }
