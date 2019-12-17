@@ -1,35 +1,28 @@
+import { Transport } from "tone";
+import * as constants from "../actions/constants";
+
 const sequencerActions = (state, action) => {
   let tracks;
   switch (action.type) {
-    case "SET_BPM":
+    case constants.SET_BPM:
+      Transport.bpm.value = action.bpm;
       return { ...state, bpm: action.bpm };
 
-    case "SET_BEATS":
-      return { ...state, beats: action.beats };
+    case constants.SET_TIME_SIGNATURE:
+      Transport.timeSignature.value = action.timeSignature;
+      return { ...state, timeSignature: action.timeSignature };
 
-    case "SET_TRACK":
+    case constants.SET_STEPS:
       tracks = { ...state.tracks };
       if (!tracks[action.id]) tracks[action.id] = {};
       tracks[action.id].steps = action.steps;
-      tracks[action.id].direction = action.direction;
-      tracks[action.id].currentStep = null;
       return { ...state, tracks };
 
-    case "SET_TRACK_CURRENT_STEP":
+    case constants.SET_DIRECTION:
       tracks = { ...state.tracks };
-      if (tracks[action.id]) {
-        tracks[action.id].currentStep = action.currentStep;
-      }
+      if (!tracks[action.id]) tracks[action.id] = {};
+      tracks[action.id].direction = action.direction;
       return { ...state, tracks };
-
-    case "PLAY":
-      return { ...state, playing: true, currentTime: 0 };
-
-    case "STOP":
-      return { ...state, playing: false };
-
-    case "INC_CURRENT_TIME":
-      return { ...state, currentTime: state.currentTime + 1 || 0 };
 
     default:
       return { ...state };

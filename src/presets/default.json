@@ -1,15 +1,37 @@
 {
+  "synth": {
+    "harmonicity": 3,
+    "detune": 0,
+    "oscillator": {
+      "type": "pulse"
+    },
+    "envelope": {
+      "attack": 0.1,
+      "decay": 0.01,
+      "sustain": 1,
+      "release": 0.2
+    },
+    "modulation": {
+      "type": "sine"
+    },
+    "modulationEnvelope": {
+      "attack": 0.1,
+      "decay": 0.1,
+      "sustain": 0.3,
+      "release": 0.1
+    }
+  },
   "sequencer": {
     "bpm": 120,
     "beats": 4,
     "tracks": {
       "note": {
         "steps": [48, 48, 48, 48],
-        "direction": "→"
+        "direction": 0
       },
-      "mod": {
+      "modulationType": {
         "steps": [0, 0, 0, 0],
-        "direction": "→"
+        "direction": 0
       }
     }
   }

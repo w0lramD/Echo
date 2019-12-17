@@ -1,34 +1,18 @@
+import * as constants from "./constants";
+
 export const setBpm = bpm => ({
-  type: "SET_BPM",
+  type: constants.SET_BPM,
   bpm
 });
 
-export const setBeats = beats => ({
-  type: "SET_BEATS",
-  beats
+export const setSteps = (id, steps) => ({
+  type: constants.SET_STEPS,
+  id,
+  steps
 });
 
-export const setTrack = (id, steps, direction) => ({
-  type: "SET_TRACK",
+export const setDirection = (id, direction) => ({
+  type: constants.SET_DIRECTION,
   id,
-  steps,
   direction
-});
-
-export const setTrackCurrentStep = (id, currentStep) => ({
-  type: "SET_TRACK_CURRENT_STEP",
-  id,
-  currentStep
-});
-
-export const play = () => ({
-  type: "PLAY"
-});
-
-export const stop = () => ({
-  type: "STOP"
-});
-
-export const incCurrentTime = () => ({
-  type: "INC_CURRENT_TIME"
 });
