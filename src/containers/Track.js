@@ -4,7 +4,7 @@ import { setSteps, setDirection } from "../actions";
 import DirectionToggle from "../toggles/DirectionToggle";
 import "./Track.css";
 
-const getCurrentStep = (playing, steps, direction, time) => {
+const getCurrentStepIndex = (playing, steps, direction, time) => {
   if (playing && steps) {
     switch (direction) {
       //forwards
@@ -41,22 +41,18 @@ let Track = props => {
         onChange={newDirection => onDirectionChange(id, newDirection)}
       />
       {steps &&
-        steps.map((value, i) => {
-          let currentStep = getCurrentStep(playing, steps, direction, time);
-          props.synth.currentStep = currentStep;
-          return (
-            <Component
-              key={i}
-              value={value}
-              onChange={stepValue => {
-                let newSteps = [...steps];
-                newSteps[i] = stepValue;
-                onStepsChange(id, newSteps);
-              }}
-              focus={i === currentStep}
-            />
-          );
-        })}
+        steps.map((value, i) => (
+          <Component
+            key={i}
+            value={value}
+            onChange={stepValue => {
+              let newSteps = [...steps];
+              newSteps[i] = stepValue;
+              onStepsChange(id, newSteps);
+            }}
+            focus={i === getCurrentStepIndex(playing, steps, direction, time)}
+          />
+        ))}
     </div>
   );
 };

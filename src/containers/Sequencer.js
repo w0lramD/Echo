@@ -9,6 +9,7 @@ import "./Sequencer.css";
 
 let Sequencer = ({ tracks, synth, time, startTimer, bpm, onBpmChange }) => {
   const [playing, setPlaying] = useState(false);
+  const SynthComponent = synth;
   return (
     <div className="Sequencer">
       <div className="controls">
@@ -26,15 +27,10 @@ let Sequencer = ({ tracks, synth, time, startTimer, bpm, onBpmChange }) => {
         tracks.map((props, i) => {
           const { id, component } = props;
           return (
-            <Track
-              key={i}
-              id={id}
-              component={component}
-              playing={playing}
-              synth={synth}
-            />
+            <Track key={i} id={id} component={component} playing={playing} />
           );
         })}
+      {synth && <SynthComponent playing={playing} />}
     </div>
   );
 };

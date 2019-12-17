@@ -20,7 +20,7 @@ export default function NoteSlider({ value, focus, onChange }) {
       max={127}
       step={1}
       focus={focus}
-      onChange={newValue => onChange(newValue)}
+      onChange={newValue => onChange(midiToNoteName(newValue))}
     />
   );
 }
