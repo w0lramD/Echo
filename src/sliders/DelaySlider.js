@@ -7,7 +7,8 @@ function DelaySliderView({ value, focus }) {
   useEffect(() => {
     const cnv = canvas.current;
     const ctx = cnv.getContext("2d");
-    ctx.strokeStyle = "white";
+    if (focus) ctx.strokeStyle = "#212121";
+    else ctx.strokeStyle = "#ffff";
     let r = 30 * value + 5;
     ctx.clearRect(0, 0, cnv.width, cnv.height);
     ctx.beginPath();
@@ -17,11 +18,11 @@ function DelaySliderView({ value, focus }) {
       r -= 4;
     }
     ctx.stroke();
-  }, [value]);
+  }, [value, focus]);
 
   return (
     <canvas
-      className={(focus && "DelaySlider focused") || "DelaySlider"}
+      className={(focus && "DelaySlider focus") || "DelaySlider"}
       ref={canvas}
       width={60}
       height={60}

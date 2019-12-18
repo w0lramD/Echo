@@ -1,12 +1,12 @@
 import React from "react";
-import { midiToNoteName } from "@tonaljs/midi";
+import { midiToNoteName, toMidi } from "@tonaljs/midi";
 import Slider from "./_Slider";
 import "./NoteSlider.css";
 
 function NoteSliderView({ value, focus }) {
   return (
     <div className={(focus && "NoteSlider focus") || "NoteSlider"}>
-      {midiToNoteName(value)}
+      {(Number.isInteger(value) && midiToNoteName(value)) || value}
     </div>
   );
 }
@@ -15,7 +15,7 @@ export default function NoteSlider({ value, focus, onChange }) {
   return (
     <Slider
       View={NoteSliderView}
-      value={value}
+      value={toMidi(value)}
       min={0}
       max={127}
       step={1}

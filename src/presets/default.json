@@ -1,34 +1,43 @@
 {
   "synth": {
-    "harmonicity": 3,
-    "detune": 0,
+    "frequency": "C4",
+    "detune": "0",
     "oscillator": {
-      "type": "pulse"
+      "type": "square"
+    },
+    "filter": {
+      "Q": 6,
+      "type": "lowpass",
+      "rolloff": -24
     },
     "envelope": {
-      "attack": 0.1,
-      "decay": 0.01,
-      "sustain": 1,
-      "release": 0.2
-    },
-    "modulation": {
-      "type": "sine"
-    },
-    "modulationEnvelope": {
-      "attack": 0.1,
+      "attack": 0.005,
       "decay": 0.1,
-      "sustain": 0.3,
-      "release": 0.1
+      "sustain": 0.9,
+      "release": 1
+    },
+    "filterEnvelope": {
+      "attack": 0.06,
+      "decay": 0.2,
+      "sustain": 0.5,
+      "release": 2,
+      "baseFrequency": 200,
+      "octaves": 7,
+      "exponent": 2
     }
   },
   "sequencer": {
     "bpm": 120,
     "tracks": {
       "note": {
-        "steps": [48, 48, 48, 48],
+        "steps": ["C3", "C3", "C3", "C3"],
         "direction": 0
       },
-      "modulationType": {
+      "oscillatorType": {
+        "steps": [0, 0, 0, 0],
+        "direction": 0
+      },
+      "filter": {
         "steps": [0, 0, 0, 0],
         "direction": 0
       }
