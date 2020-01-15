@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { PolySynth, AMSynth, Freeverb } from "tone";
+import { MonoSynth, Delay, Freeverb } from "tone";
 
 const getCurrentStep = (steps, direction, time) => {
   if (steps) {
@@ -27,46 +27,41 @@ const getCurrentStep = (steps, direction, time) => {
   }
 };
 
-let _synth, _rev, _tracks;
-let Synth = ({ synthState, playing, tracks, time }) => {
+let _synth, _rev, _delay;
+let _direction, _playing, _steps;
+let Synth = ({ synthState, playing, steps, direction, time }) => {
   useEffect(() => {
     if (!_synth) {
-      _rev = new Freeverb(0.8, 1000).toMaster();
+      _rev = new Freeverb(0.8, 500).toMaster();
       _rev.wet.value = 0.2;
-      _synth = new PolySynth(12, AMSynth).connect(_rev);
+      _delay = new Delay(0, 10);
+      _synth = new MonoSynth().connect(_delay);
+      _delay.connect(_rev);
+      _synth.connect(_rev);
     }
-  }, [synthState]);
+  }, []);
 
   useEffect(() => {
-    _tracks = tracks;
-  }, [tracks]);
+    _direction = direction;
+    _playing = playing;
+    _steps = steps;
+  }, [direction, playing, steps]);
 
   useEffect(() => {
-    if (playing && _tracks) {
-      if (_tracks.modulationType)
-        _synth.modulationType = getCurrentStep(
-          _tracks.modulationType.steps,
-          _tracks.modulationType.direction,
-          time
-        );
-      if (_tracks.note) {
-        let note = getCurrentStep(
-          _tracks.note.steps,
-          _tracks.note.direction,
-          time
-        );
-        _synth.triggerAttackRelease(note, 0.1);
-      }
+    if (_playing) {
+      let note = getCurrentStep(_steps, _direction, time);
+      console.log(note);
+      _synth.triggerAttackRelease(note, 0.1);
     }
-  }, [playing, time]);
+  }, [time]);
 
   return <></>;
 };
 
 Synth = connect(state => {
   const synthState = state.synth;
-  const { tracks, time } = state.sequencer;
-  return { tracks, time, synthState };
+  const { steps, direction, playing, time } = state.sequencer;
+  return { steps, direction, playing, time, synthState };
 })(Synth);
 
 export default Synth;

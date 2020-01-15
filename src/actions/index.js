@@ -5,19 +5,22 @@ export const setBpm = bpm => ({
   bpm
 });
 
-export const setSteps = (id, steps) => ({
+export const setSteps = steps => ({
   type: constants.SET_STEPS,
-  id,
   steps
 });
 
-export const setDirection = (id, direction) => ({
+export const setDirection = direction => ({
   type: constants.SET_DIRECTION,
-  id,
   direction
 });
 
 export const setTime = time => ({
   type: constants.SET_TIME,
   time
+});
+
+export const setPlaying = playing => ({
+  type: constants.SET_PLAYING,
+  playing
 });

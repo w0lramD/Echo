@@ -5,3 +5,5 @@ export const SET_STEPS = "SET_STEPS";
 export const SET_DIRECTION = "SET_DIRECTION";
 
 export const SET_TIME = "SET_TIME";
+
+export const SET_PLAYING = "SET_PLAYING";

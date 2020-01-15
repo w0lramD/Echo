@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { setSteps, setDirection } from "../actions";
 import DirectionToggle from "../toggles/DirectionToggle";
-import "./Track.css";
+import "./Pattern.css";
 
 const getCurrentStepIndex = (playing, steps, direction, time) => {
   if (playing && steps) {
@@ -29,48 +29,49 @@ const getCurrentStepIndex = (playing, steps, direction, time) => {
   }
 };
 
-let Track = props => {
-  let { playing, time, id, tracks } = props;
-  let { steps, direction } = tracks[id];
-  const Component = props.component;
+let Pattern = props => {
+  let { playing, time, steps, direction } = props;
   let { onStepsChange, onDirectionChange } = props;
+  const Component = props.component;
   return (
-    <div className="Track">
+    <div className="Pattern">
       <DirectionToggle
         value={direction}
-        onChange={newDirection => onDirectionChange(id, newDirection)}
+        onChange={newDirection => onDirectionChange(newDirection)}
       />
-      {steps &&
-        steps.map((value, i) => (
-          <Component
-            key={i}
-            value={value}
-            onChange={stepValue => {
-              let newSteps = [...steps];
-              newSteps[i] = stepValue;
-              onStepsChange(id, newSteps);
-            }}
-            focus={i === getCurrentStepIndex(playing, steps, direction, time)}
-          />
-        ))}
+      <div className="Pattern steps">
+        {steps &&
+          steps.map((value, i) => (
+            <Component
+              key={i}
+              value={value}
+              onChange={stepValue => {
+                let newSteps = [...steps];
+                newSteps[i] = stepValue;
+                onStepsChange(newSteps);
+              }}
+              focus={i === getCurrentStepIndex(playing, steps, direction, time)}
+            />
+          ))}
+      </div>
     </div>
   );
 };
 
-Track = connect(
+Pattern = connect(
   state => {
-    const { tracks, time } = state.sequencer;
-    return { tracks, time };
+    const { steps, direction, playing, time } = state.sequencer;
+    return { steps, direction, playing, time };
   },
   dispatch => {
-    const onStepsChange = (id, newSteps) => {
-      dispatch(setSteps(id, newSteps));
+    const onStepsChange = newSteps => {
+      dispatch(setSteps(newSteps));
     };
-    const onDirectionChange = (id, newDirection) => {
-      dispatch(setDirection(id, newDirection));
+    const onDirectionChange = newDirection => {
+      dispatch(setDirection(newDirection));
     };
     return { onStepsChange, onDirectionChange };
   }
-)(Track);
+)(Pattern);
 
-export default Track;
+export default Pattern;

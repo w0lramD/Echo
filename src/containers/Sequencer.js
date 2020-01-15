@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { setBpm, setTime } from "../actions";
+import { setPlaying, setBpm, setTime } from "../actions";
 import PlayToggle from "../toggles/PlayToggle";
 import BpmSlider from "../sliders/BpmSlider";
-import Track from "./Track.js";
 import Tone from "tone";
 import "./Sequencer.css";
 
-let Sequencer = ({ tracks, synth, time, startTimer, bpm, onBpmChange }) => {
-  const [playing, setPlaying] = useState(false);
-  const SynthComponent = synth;
+let Sequencer = props => {
+  let { pattern } = props;
+  let { playing, onPlayChange } = props;
+  let { time, startTimer } = props;
+  let { bpm, onBpmChange } = props;
   return (
     <div className="Sequencer">
       <div className="controls">
@@ -17,20 +18,13 @@ let Sequencer = ({ tracks, synth, time, startTimer, bpm, onBpmChange }) => {
           value={playing}
           onChange={() => {
             Tone.context.resume();
-            setPlaying(!playing);
+            onPlayChange(playing);
             startTimer(time);
           }}
         />
         <BpmSlider value={bpm} onChange={newBpm => onBpmChange(newBpm)} />
       </div>
-      {tracks &&
-        tracks.map((props, i) => {
-          const { id, component } = props;
-          return (
-            <Track key={i} id={id} component={component} playing={playing} />
-          );
-        })}
-      {synth && <SynthComponent playing={playing} />}
+      {pattern}
     </div>
   );
 };
@@ -38,25 +32,27 @@ let Sequencer = ({ tracks, synth, time, startTimer, bpm, onBpmChange }) => {
 let _bpm;
 Sequencer = connect(
   state => {
-    const { time, bpm } = state.sequencer;
+    const { playing, time, bpm } = state.sequencer;
     _bpm = bpm;
-    return { time, bpm };
+    return { playing, time, bpm };
   },
   dispatch => {
+    const onPlayChange = playing => {
+      dispatch(setPlaying(!playing));
+    };
     const onBpmChange = newBpm => {
       dispatch(setBpm(newBpm));
     };
     const startTimer = time => {
       if (_bpm) {
         function timer(time) {
-          dispatch(setTime(time));
-          //max 64 steps per pattern
+          dispatch(setTime(time)); //max 64 steps per pattern
           setTimeout(() => timer((time + 1) % 64), (60 * 1000) / _bpm / 4);
         }
         if (!time) timer(0);
       }
     };
-    return { onBpmChange, startTimer };
+    return { onPlayChange, onBpmChange, startTimer };
   }
 )(Sequencer);
 
