@@ -3,26 +3,13 @@
     "volume": "-24",
     "detune": "0",
     "waveform": 0,
-    "filter": {
-      "Q": 6,
-      "type": "lowpass",
-      "rolloff": -24
-    },
-    "envelope": {
-      "attack": 0.005,
-      "decay": 0.1,
-      "sustain": 0.9,
-      "release": 1
-    },
-    "filterEnvelope": {
-      "attack": 0.06,
-      "decay": 0.2,
-      "sustain": 0.5,
-      "release": 2,
-      "baseFrequency": 200,
-      "octaves": 7,
-      "exponent": 2
-    }
+    "filterFreq": 200,
+    "filterRes": 6,
+    "filterType": 0,
+    "echo1": 0.3,
+    "echo2": 0.3,
+    "echo3": 0.3,
+    "echo4": 0.3
   },
   "sequencer": {
     "bpm": 120,

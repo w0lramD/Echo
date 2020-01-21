@@ -16,7 +16,7 @@ let Sequencer = props => {
       <div className="controls">
         <IconToggle
           value={playing}
-          icons={["play", "stop"]}
+          options={["play", "stop"]}
           onChange={() => {
             Tone.context.resume();
             onPlayChange(playing);

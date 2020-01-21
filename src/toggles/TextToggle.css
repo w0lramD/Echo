@@ -1,4 +1,4 @@
-.NumberSlider {
+.TextToggle {
   color: #ffff;
   text-align: center;
   font-size: 15px;
@@ -6,11 +6,11 @@
   height: 80px;
 }
 
-.NumberSlider .label {
+.TextToggle .label {
 }
 
-.NumberSlider .value {
+.TextToggle .option {
 }
 
-.NumberSlider.focus {
+.TextToggle.focus {
 }

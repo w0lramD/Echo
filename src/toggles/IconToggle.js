@@ -2,11 +2,11 @@ import React from "react";
 import Toggle from "./_Toggle";
 import "./IconToggle.css";
 
-function IconToggleView({ value, label, icons, focus }) {
+function IconToggleView({ value, label, options, focus }) {
   return (
     <div className={(focus && "IconToggle focus") || "IconToggle"}>
       {label && <p>{label}</p>}
-      <img src={"/icons/" + icons[value] + ".svg"} alt={icons[value]} />
+      <img src={"/icons/" + options[value] + ".svg"} alt={options[value]} />
     </div>
   );
 }
@@ -18,7 +18,7 @@ export default function IconToggle(props) {
       value={props.value}
       label={props.label}
       focus={props.focus}
-      icons={props.icons}
+      options={props.options}
       onChange={newValue => props.onChange(newValue)}
     />
   );

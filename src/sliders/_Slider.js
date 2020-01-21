@@ -19,19 +19,23 @@ export default class Slider extends React.Component {
         if (!this.originY) {
           this.originY = screenY;
         } else {
-          this.frameCount++;
-          if (this.frameCount % 5 === 0) {
-            if (this.originY > screenY) this.incrementValue(); //up
-            if (this.originY < screenY) this.decrementValue(); //down
+          if (this.originY > screenY) {
+            this.originY = screenY;
+            this.incrementValue(); //up
+          }
+          if (this.originY < screenY) {
+            this.originY = screenY;
+            this.decrementValue(); //down
           }
         }
       }
     });
   }
 
-  incrementValue() {
+  incrementValue(dist) {
     let { value } = this.state;
     let { step, min, max } = this.props;
+    if (value < 2 * step) step = step / 10;
     value = Math.round((value + step) * 100) / 100;
     if (value <= max && value >= min) {
       this.setState({ value });
@@ -39,9 +43,10 @@ export default class Slider extends React.Component {
     }
   }
 
-  decrementValue() {
+  decrementValue(dist) {
     let { value } = this.state;
     let { step, min, max } = this.props;
+    if (value < 2 * step) step = step / 10;
     value = Math.round((value - step) * 100) / 100;
     if (value <= max && value >= min) {
       this.setState({ value });

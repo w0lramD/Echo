@@ -32,9 +32,9 @@ export default class Toggle extends React.Component {
       <div
         style={{ userSelect: "none" }}
         onClick={() => {
-          let { icons } = this.props;
+          let { options } = this.props;
           let { value } = this.state;
-          value = (value + 1) % icons.length;
+          value = (value + 1) % options.length;
           this.setState({ value });
           this.props.onChange(value);
         }}
@@ -48,7 +48,7 @@ export default class Toggle extends React.Component {
           value={this.state.value}
           label={this.state.label}
           focus={this.props.focus}
-          icons={this.props.icons}
+          options={this.props.options}
         />
       </div>
     );

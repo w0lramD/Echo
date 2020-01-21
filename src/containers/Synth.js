@@ -2,25 +2,68 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getCurrentStep } from "./Utils";
 import { setSynthState } from "../actions";
-import { MonoSynth, Delay, Freeverb } from "tone";
+import { MonoSynth, Compressor, FeedbackDelay, Freeverb } from "tone";
 import NumberSlider from "../sliders/NumberSlider";
-import IconToggle from "../toggles/IconToggle";
+import TextToggle from "../toggles/TextToggle";
 import "./Synth.css";
 
-let _synth, _rev, _delay;
+let _limiter, _synth, _rev, _echo1, _echo2, _echo3, _echo4;
 let _direction, _playing, _steps;
 
 let Synth = props => {
   useEffect(() => {
     if (!_synth) {
-      _rev = new Freeverb(0.8, 500).toMaster();
+      _limiter = new Compressor({
+        //limiter
+        ratio: 8,
+        threshold: -32,
+        release: 0.25,
+        attack: 0.0045,
+        knee: 0
+      }).toMaster();
+      _rev = new Freeverb(0.8, 500).connect(_limiter);
       _rev.wet.value = 0.2;
-      _delay = new Delay(0, 10);
-      _synth = new MonoSynth().connect(_delay);
-      _delay.connect(_rev);
-      _synth.connect(_rev);
+      _echo1 = new FeedbackDelay("1n", 0).connect(_rev);
+      _echo2 = new FeedbackDelay("2n", 0).connect(_rev);
+      _echo3 = new FeedbackDelay("3n", 0).connect(_rev);
+      _echo4 = new FeedbackDelay("4n", 0).connect(_rev);
+      _synth = new MonoSynth({
+        filter: {
+          rolloff: -24
+        },
+        filterEnvelope: {
+          sustain: 0.1
+        }
+      })
+        .connect(_echo1)
+        .connect(_echo2)
+        .connect(_echo3)
+        .connect(_echo4);
     }
   }, []);
+
+  let { synthState, onSynthStateChange } = props;
+  const updateSynthState = () => {
+    if (_synth && synthState) {
+      _synth.portamento = synthState.portamento;
+      _synth.volume.value = synthState.volume;
+      _synth.detune.value = synthState.detune;
+      _synth.oscillator.type = ["sine", "square", "triangle", "sawtooth"][
+        synthState.waveform
+      ];
+      _synth.filterEnvelope.baseFrequency = synthState.filterFreq;
+      _synth.filter.Q.value = synthState.filterRes;
+      _synth.filter.type = ["lowpass", "highpass", "bandpass", "notch"][
+        synthState.filterType
+      ];
+      _echo1.wet.value = synthState.echo1;
+      _echo2.wet.value = synthState.echo2;
+      _echo3.wet.value = synthState.echo3;
+      _echo4.wet.value = synthState.echo4;
+    }
+    onSynthStateChange(synthState);
+  };
+  useEffect(updateSynthState, []);
 
   let { direction, playing, steps } = props;
   useEffect(() => {
@@ -42,26 +85,12 @@ let Synth = props => {
     }
   }, [time]);
 
-  let { synthState, onSynthStateChange } = props;
-  const updateSynthState = () => {
-    if (_synth && synthState) {
-      _synth.portamento = synthState.portamento;
-      _synth.volume.value = synthState.volume;
-      _synth.detune.value = synthState.detune;
-      _synth.oscillator.type = ["sine", "square", "triangle", "sawtooth"][
-        synthState.waveform
-      ];
-    }
-    onSynthStateChange(synthState);
-  };
-  useEffect(updateSynthState, []);
-
   return (
     <div className="Synth">
       <div className="osc-controls">
         <NumberSlider
+          label={"detune"}
           value={synthState.detune}
-          label={"Detune"}
           min={-100}
           max={100}
           step={1}
@@ -71,8 +100,8 @@ let Synth = props => {
           }}
         />
         <NumberSlider
+          label={"level"}
           value={synthState.volume}
-          label={"Level"}
           min={-64}
           max={0}
           step={1}
@@ -82,8 +111,8 @@ let Synth = props => {
           }}
         />
         <NumberSlider
+          label={"slide"}
           value={synthState.portamento}
-          label={"Portamento"}
           min={0}
           max={1}
           step={0.01}
@@ -92,11 +121,58 @@ let Synth = props => {
             updateSynthState();
           }}
         />
-        <IconToggle
+        <TextToggle
+          label={"wave"}
           value={synthState.waveform}
-          icons={["sine", "square", "triangle", "sawtooth"]}
+          options={["sine", "square", "triangle", "sawtooth"]}
           onChange={value => {
             synthState.waveform = value;
+            updateSynthState();
+          }}
+        />
+      </div>
+      <div className="filter-controls">
+        <NumberSlider
+          label={"cutoff"}
+          value={synthState.filterFreq}
+          min={20}
+          max={22000}
+          step={100}
+          onChange={value => {
+            synthState.filterFreq = value;
+            updateSynthState();
+          }}
+        />
+        <NumberSlider
+          label={"Q"}
+          value={synthState.filterRes}
+          min={0}
+          max={10}
+          step={0.1}
+          onChange={value => {
+            synthState.filterRes = value;
+            updateSynthState();
+          }}
+        />
+        <TextToggle
+          label={"type"}
+          value={synthState.filterType}
+          options={["lowpass", "highpass", "bandpass", "notch"]}
+          onChange={value => {
+            synthState.filterType = value;
+            updateSynthState();
+          }}
+        />
+      </div>
+      <div className="echo-controls">
+        <NumberSlider
+          label={"echo1"}
+          value={synthState.echo1}
+          min={0}
+          max={1}
+          step={0.1}
+          onChange={value => {
+            synthState.echo1 = value;
             updateSynthState();
           }}
         />

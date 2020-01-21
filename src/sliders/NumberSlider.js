@@ -5,8 +5,8 @@ import "./NumberSlider.css";
 function NumberSliderView({ value, label, focus }) {
   return (
     <div className={(focus && "NumberSlider focus") || "NumberSlider"}>
-      <p>{label}</p>
-      <p>{value}</p>
+      <p className="label">{label}</p>
+      <p className="value">{value}</p>
     </div>
   );
 }
