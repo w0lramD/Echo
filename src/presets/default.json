@@ -1,10 +1,8 @@
 {
-  "synth": {
-    "frequency": "C4",
+  "synthState": {
+    "volume": "-24",
     "detune": "0",
-    "oscillator": {
-      "type": "square"
-    },
+    "waveform": 0,
     "filter": {
       "Q": 6,
       "type": "lowpass",
@@ -29,21 +27,21 @@
   "sequencer": {
     "bpm": 120,
     "steps": [
+      "C2",
       "C3",
       "C3",
       "C3",
+      "F1",
+      "Bb3",
       "C3",
       "C3",
+      "Eb2",
       "C3",
+      "Ab4",
       "C3",
+      "Eb2",
       "C3",
-      "C3",
-      "C3",
-      "C3",
-      "C3",
-      "C3",
-      "C3",
-      "C3",
+      "Eb5",
       "C3"
     ],
     "direction": 0

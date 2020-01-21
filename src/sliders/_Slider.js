@@ -7,7 +7,8 @@ export default class Slider extends React.Component {
     this.originY = null;
     this.frameCount = 0;
     this.state = {
-      value: props.value || 0
+      value: props.value || 0,
+      label: props.label || ""
     };
   }
 
@@ -64,7 +65,11 @@ export default class Slider extends React.Component {
           this.originY = null;
         }}
       >
-        <View value={this.state.value} focus={this.props.focus} />
+        <View
+          value={this.state.value}
+          label={this.state.label}
+          focus={this.props.focus}
+        />
       </div>
     );
   }

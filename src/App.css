@@ -2,4 +2,9 @@
   font-family: "Titillium Web", sans-serif;
   background: #121212;
   color: #ffff;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }

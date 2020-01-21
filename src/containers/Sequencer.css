@@ -1,3 +1,8 @@
+.Sequencer {
+  width: 500px;
+  height: 500px;
+}
+
 .Sequencer .controls {
   display: flex;
   align-items: baseline;

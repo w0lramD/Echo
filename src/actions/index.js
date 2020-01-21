@@ -24,3 +24,8 @@ export const setPlaying = playing => ({
   type: constants.SET_PLAYING,
   playing
 });
+
+export const setSynthState = synthState => ({
+  type: constants.SET_SYNTH_STATE,
+  synthState
+});

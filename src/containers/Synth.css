@@ -1,0 +1,9 @@
+.Synth {
+  width: 500px;
+  height: 500px;
+}
+
+.Synth .osc-controls {
+  display: flex;
+  align-items: center;
+}

@@ -6,7 +6,8 @@ export default class Toggle extends React.Component {
     this.clicking = false;
     this.frameCount = 0;
     this.state = {
-      value: props.value || 0
+      value: props.value || 0,
+      label: props.label || ""
     };
   }
 
@@ -31,9 +32,9 @@ export default class Toggle extends React.Component {
       <div
         style={{ userSelect: "none" }}
         onClick={() => {
-          let { labels } = this.props;
+          let { icons } = this.props;
           let { value } = this.state;
-          value = (value + 1) % labels.length;
+          value = (value + 1) % icons.length;
           this.setState({ value });
           this.props.onChange(value);
         }}
@@ -45,8 +46,9 @@ export default class Toggle extends React.Component {
       >
         <View
           value={this.state.value}
-          labels={this.props.labels}
+          label={this.state.label}
           focus={this.props.focus}
+          icons={this.props.icons}
         />
       </div>
     );

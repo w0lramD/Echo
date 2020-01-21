@@ -2,12 +2,12 @@ import React from "react";
 import Toggle from "./_Toggle";
 import "./PlayToggle.css";
 
-function PlayToggleView({ labels, value, focus }) {
+function PlayToggleView({ icons, value, focus }) {
   value = value || 0;
   return (
-    <div className={"PlayToggle " + labels[value]}>
-      {(labels[value] === "isNotPlaying" && "►") ||
-        (labels[value] === "isPlaying" && "■")}
+    <div className={"PlayToggle " + icons[value]}>
+      {(icons[value] === "isNotPlaying" && "►") ||
+        (icons[value] === "isPlaying" && "■")}
     </div>
   );
 }
@@ -18,7 +18,7 @@ export default function PlayToggle({ value, focus, onChange }) {
     <Toggle
       View={PlayToggleView}
       value={value}
-      labels={["isNotPlaying", "isPlaying"]}
+      icons={["isNotPlaying", "isPlaying"]}
       focus={focus}
       onChange={newValue => onChange(newValue)}
     />

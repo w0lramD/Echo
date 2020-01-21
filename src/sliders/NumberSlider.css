@@ -1,0 +1,10 @@
+.NumberSlider {
+  color: #ffff;
+  text-align: center;
+  font-size: 15px;
+  width: 80px;
+  height: 80px;
+}
+
+.NumberSlider.focus {
+}

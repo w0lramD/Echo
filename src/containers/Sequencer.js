@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { setPlaying, setBpm, setTime } from "../actions";
-import PlayToggle from "../toggles/PlayToggle";
+import IconToggle from "../toggles/IconToggle";
 import BpmSlider from "../sliders/BpmSlider";
 import Tone from "tone";
 import "./Sequencer.css";
@@ -14,8 +14,9 @@ let Sequencer = props => {
   return (
     <div className="Sequencer">
       <div className="controls">
-        <PlayToggle
+        <IconToggle
           value={playing}
+          icons={["play", "stop"]}
           onChange={() => {
             Tone.context.resume();
             onPlayChange(playing);
