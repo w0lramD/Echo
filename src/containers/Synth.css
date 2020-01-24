@@ -12,3 +12,8 @@
   display: flex;
   align-items: center;
 }
+
+.Synth .echo-controls {
+  display: flex;
+  align-items: center;
+}

@@ -38,7 +38,8 @@ let Synth = props => {
         .connect(_echo1)
         .connect(_echo2)
         .connect(_echo3)
-        .connect(_echo4);
+        .connect(_echo4)
+        .connect(_rev);
     }
   }, []);
 
@@ -115,7 +116,7 @@ let Synth = props => {
           value={synthState.portamento}
           min={0}
           max={1}
-          step={0.01}
+          step={0.1}
           onChange={value => {
             synthState.portamento = value;
             updateSynthState();
@@ -173,6 +174,39 @@ let Synth = props => {
           step={0.1}
           onChange={value => {
             synthState.echo1 = value;
+            updateSynthState();
+          }}
+        />
+        <NumberSlider
+          label={"echo2"}
+          value={synthState.echo2}
+          min={0}
+          max={1}
+          step={0.1}
+          onChange={value => {
+            synthState.echo2 = value;
+            updateSynthState();
+          }}
+        />
+        <NumberSlider
+          label={"echo3"}
+          value={synthState.echo3}
+          min={0}
+          max={1}
+          step={0.1}
+          onChange={value => {
+            synthState.echo3 = value;
+            updateSynthState();
+          }}
+        />
+        <NumberSlider
+          label={"echo4"}
+          value={synthState.echo4}
+          min={0}
+          max={1}
+          step={0.1}
+          onChange={value => {
+            synthState.echo4 = value;
             updateSynthState();
           }}
         />

@@ -7,8 +7,8 @@
     "filterRes": 6,
     "filterType": 0,
     "echo1": 0.3,
-    "echo2": 0.3,
-    "echo3": 0.3,
+    "echo2": 0.5,
+    "echo3": 0.8,
     "echo4": 0.3
   },
   "sequencer": {
