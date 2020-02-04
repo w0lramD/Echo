@@ -1,6 +1,6 @@
 import React from "react";
 import Toggle from "./_Toggle";
-import "./TextToggle.css";
+import "./TextToggle.sass";
 
 function TextToggleView({ value, label, options, focus }) {
   return (

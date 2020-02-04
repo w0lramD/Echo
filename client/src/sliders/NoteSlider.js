@@ -1,7 +1,7 @@
 import React from "react";
 import { midiToNoteName, toMidi } from "@tonaljs/midi";
 import Slider from "./_Slider";
-import "./NoteSlider.css";
+import "./NoteSlider.sass";
 
 function NoteSliderView({ value, focus }) {
   return (

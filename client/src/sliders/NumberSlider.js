@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "./_Slider";
-import "./NumberSlider.css";
+import "./NumberSlider.sass";
 
 function NumberSliderView({ value, label, focus }) {
   return (

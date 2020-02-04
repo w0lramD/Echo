@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Slider from "./_Slider";
-import "./DelaySlider.css";
+import "./DelaySlider.sass";
 
 function DelaySliderView({ value, focus }) {
   const canvas = useRef(null);

@@ -6,7 +6,7 @@ import rootReducer from "./reducers";
 import App from "./App";
 import preset from "./presets/default";
 import * as serviceWorker from "./serviceWorker";
-import "./index.css";
+import "normalize.css";
 
 const store = createStore(rootReducer, preset);
 

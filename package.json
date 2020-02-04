@@ -1,16 +1,22 @@
 {
-  "name": "echo",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.17.1"
-  }
+    "name": "echo",
+    "version": "1.0.0",
+    "description": "Monophonic synthetizer with delay line and step sequencer.",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    },
+    "keywords": [
+        "music",
+        "synth",
+        "delay",
+        "sequencer",
+        "react"
+    ],
+    "author": "Filippo Guida",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.17.1"
+    }
 }

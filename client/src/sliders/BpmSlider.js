@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "./_Slider";
-import "./BpmSlider.css";
+import "./BpmSlider.sass";
 
 function BpmSliderView({ value, focus }) {
   return (

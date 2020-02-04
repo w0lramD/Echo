@@ -1,6 +1,6 @@
 import React from "react";
 import Toggle from "./_Toggle";
-import "./IconToggle.css";
+import "./IconToggle.sass";
 
 function IconToggleView({ value, label, options, focus }) {
   return (
