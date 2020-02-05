@@ -8,6 +8,7 @@ let _direction, _playing, _steps;
 let Synth = props => {
   let { synthState } = props;
   useEffect(() => {
+    console.log(synthState);
     updateSynthState(synth, synthState);
   }, [synthState]);
 

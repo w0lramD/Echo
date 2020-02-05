@@ -29,3 +29,8 @@ export const setSynthState = synthState => ({
   type: constants.SET_SYNTH_STATE,
   synthState
 });
+
+export const setSequencerState = sequencerState => ({
+  type: constants.SET_SEQUENCER_STATE,
+  sequencerState
+});

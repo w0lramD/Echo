@@ -17,6 +17,9 @@ const sequencerActions = (state, action) => {
     case constants.SET_PLAYING:
       return { ...state, playing: action.playing };
 
+    case constants.SET_SEQUENCER_STATE:
+      return { ...state, sequencer: action.sequencer };
+
     default:
       return { ...state };
   }

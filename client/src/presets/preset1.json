@@ -3,8 +3,8 @@
     "portamento": 0,
     "volume": "-24",
     "detune": "0",
-    "waveform": 0,
-    "filterFreq": 200,
+    "waveform": 2,
+    "filterFreq": 400,
     "filterRes": 6,
     "filterType": 0,
     "echo1": 0.3,
@@ -15,7 +15,7 @@
   "sequencer": {
     "bpm": 120,
     "steps": [
-      "C2",
+      "C6",
       "C3",
       "C3",
       "C3",

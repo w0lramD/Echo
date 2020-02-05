@@ -1,31 +1,15 @@
 @import "palette.sass"
 
-body
+#root
   font-family: "Titillium Web", sans-serif
-  background: $bgColor
   color: $textColor
-  overflow: hidden
+  display: flex
+  justify-content: center
+  align-items: center
 
-@media (min-width: 600px)
   .App
-
-    .panel
-      position: absolute
-      top: 50px
-      left: 120px
-
-    .navigation-bar
-      position: absolute
-      top: 0
-      left: 0
-      div
-        display: flex
-        justify-content: center
-        align-items: center
-        width: 80px
-        height: 80px
-        a
-          text-align: center
-        img
-          max-width: 25%
-          max-height: 25%
+    position: fixed
+    top: 30%
+    display: flex
+    flex-wrap: wrap
+    width: 200px

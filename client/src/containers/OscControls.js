@@ -1,71 +1,25 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setSynthState } from "../actions";
-import NumberSlider from "../sliders/NumberSlider";
-import TextToggle from "../toggles/TextToggle";
+import Control from "../uix/Control";
 import "./OscControls.sass";
 
-let OscControls = ({ synthState, onSynthStateChange }) => {
+let OscControls = ({ synthState }) => {
   return (
     <div className="OscControls">
-      <h1>Oscillator</h1>
-      <NumberSlider
-        label={"detune"}
-        value={synthState.detune}
-        min={-100}
-        max={100}
-        step={1}
-        onChange={value => {
-          synthState.detune = value;
-          onSynthStateChange();
-        }}
-      />
-      <NumberSlider
-        label={"level"}
-        value={synthState.volume}
-        min={-64}
-        max={0}
-        step={1}
-        onChange={value => {
-          synthState.volume = value;
-          onSynthStateChange();
-        }}
-      />
-      <NumberSlider
-        label={"slide"}
-        value={synthState.portamento}
-        min={0}
-        max={1}
-        step={0.1}
-        onChange={value => {
-          synthState.portamento = value;
-          onSynthStateChange();
-        }}
-      />
-      <TextToggle
-        label={"wave"}
-        value={synthState.waveform}
-        options={["sine", "square", "triangle", "sawtooth"]}
-        onChange={value => {
-          synthState.waveform = value;
-          onSynthStateChange();
-        }}
+      <Control label={"detune"} value={synthState.detune} />
+      <Control label={"amplitude"} value={synthState.volume} />
+      <Control label={"slide"} value={synthState.portamento} />
+      <Control
+        label={"wave - "}
+        value={["sine", "pulse", "tri", "saw"][synthState.waveform]}
       />
     </div>
   );
 };
 
-OscControls = connect(
-  state => {
-    const { synthState } = state;
-    return { synthState };
-  },
-  dispatch => {
-    const onSynthStateChange = newSynthState => {
-      dispatch(setSynthState(newSynthState));
-    };
-    return { onSynthStateChange };
-  }
-)(OscControls);
+OscControls = connect(state => {
+  const { synthState } = state;
+  return { synthState };
+})(OscControls);
 
 export default OscControls;
