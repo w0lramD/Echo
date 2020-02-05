@@ -36,20 +36,19 @@ let Score = ({ synthState, onSynthStateChange }) => {
           const d = _presetB.offsetTop - _presetA.offsetTop;
           const pos = document.documentElement.scrollTop - _presetA.offsetTop;
           const t = pos / d;
-          let newState = { ...synthState };
           for (let key in _presetA.synthState) {
             if (key !== "offsetTop") {
               if (key !== "waveform" && key !== "filterType") {
-                newState[key] =
+                synthState[key] =
                   _presetA.synthState[key] * (1 - t) +
                   _presetB.synthState[key] * t;
               } else {
-                newState[key] =
+                synthState[key] =
                   t > 0.5 ? _presetB.synthState[key] : _presetA.synthState[key];
               }
             }
           }
-          onSynthStateChange();
+          onSynthStateChange(synthState);
         }
       });
     }
