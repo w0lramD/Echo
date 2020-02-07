@@ -4,7 +4,9 @@ import * as actions from "../actions";
 import Tone from "tone";
 import "./PlayControls.sass";
 
-let PlayControls = ({ playing, onPlayChange }) => {
+let PlayControls = props => {
+  let { playing, onPlayChange } = props;
+  let { showingCtls, onShowingCtlsChange } = props;
   return (
     <div className="PlayControls">
       <div
@@ -16,6 +18,12 @@ let PlayControls = ({ playing, onPlayChange }) => {
       >
         {(playing && "stop") || "play"}
       </div>
+      <div
+        className="showHideCtls"
+        onClick={() => onShowingCtlsChange(!showingCtls)}
+      >
+        {(showingCtls && "hide status") || "show status"}
+      </div>
     </div>
   );
 };
@@ -25,7 +33,8 @@ PlayControls = connect(
   state => {
     const { playing, time, bpm } = state.sequencer;
     _bpm = bpm;
-    return { playing, time, bpm };
+    const { showingCtls } = state.utils;
+    return { playing, time, bpm, showingCtls };
   },
   dispatch => {
     const onPlayChange = playing => {
@@ -40,9 +49,10 @@ PlayControls = connect(
       else clearTimeout(_timer);
       dispatch(actions.setPlaying(!playing));
     };
-    return {
-      onPlayChange
+    const onShowingCtlsChange = showingCtls => {
+      dispatch(actions.setShowingCtls(showingCtls));
     };
+    return { onPlayChange, onShowingCtlsChange };
   }
 )(PlayControls);
 

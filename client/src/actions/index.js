@@ -25,6 +25,11 @@ export const setPlaying = playing => ({
   playing
 });
 
+export const setShowingCtls = showingCtls => ({
+  type: constants.SET_SHOW_CTLS,
+  showingCtls
+});
+
 export const setSynthState = synthState => ({
   type: constants.SET_SYNTH_STATE,
   synthState

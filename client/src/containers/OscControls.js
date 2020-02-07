@@ -3,23 +3,28 @@ import { connect } from "react-redux";
 import Control from "../uix/Control";
 import "./OscControls.sass";
 
-let OscControls = ({ synthState }) => {
+let OscControls = ({ synthState, showingCtls }) => {
   return (
     <div className="OscControls">
-      <Control label={"detune"} value={synthState.detune} />
-      <Control label={"amplitude"} value={synthState.volume} />
-      <Control label={"slide"} value={synthState.portamento} />
-      <Control
-        label={"wave - "}
-        value={["sine", "pulse", "tri", "saw"][synthState.waveform]}
-      />
+      {showingCtls && (
+        <>
+          <Control label={"detune"} value={synthState.detune} />
+          <Control label={"amplitude"} value={synthState.volume} />
+          <Control label={"slide"} value={synthState.portamento} />
+          <Control
+            label={"wave - "}
+            value={["sine", "pulse", "tri", "saw"][synthState.waveform]}
+          />
+        </>
+      )}
     </div>
   );
 };
 
 OscControls = connect(state => {
   const { synthState } = state;
-  return { synthState };
+  const { showingCtls } = state.utils;
+  return { synthState, showingCtls };
 })(OscControls);
 
 export default OscControls;

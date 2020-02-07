@@ -2,18 +2,14 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import ScrollReveal from "scrollreveal";
-import preset0 from "../presets/default";
-import preset1 from "../presets/preset1";
-import preset2 from "../presets/preset2";
 import "./Score.sass";
-
-const presets = { preset0, preset1, preset2 };
 
 let SC;
 let _presetA, _presetB;
 let _token = true;
 
 let Score = props => {
+  let { presets } = props;
   let { sequencer, onSequencerChange } = props;
   let { synthState, onSynthStateChange } = props;
   useEffect(() => {
@@ -31,6 +27,10 @@ let Score = props => {
             _presetB = presets[el.className.split(".").join("")];
             _presetB.offsetTop = el.offsetTop;
             onSequencerChange(_presetB.sequencer);
+          }
+          if (!_presetB) {
+            _presetB = presets.preset1;
+            _presetB.offsetTop = el.offsetHeight;
           }
           _token = !_token;
         }
@@ -62,7 +62,7 @@ let Score = props => {
         }
       });
     }
-  }, [synthState, onSynthStateChange, sequencer, onSequencerChange]);
+  }, [synthState, onSynthStateChange, sequencer, onSequencerChange, presets]);
 
   return (
     <div className="Score">

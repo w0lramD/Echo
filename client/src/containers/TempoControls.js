@@ -3,17 +3,18 @@ import { connect } from "react-redux";
 import Control from "../uix/Control";
 import "./TempoControls.sass";
 
-let Sequencer = ({ bpm }) => {
+let Sequencer = ({ bpm, showingCtls }) => {
   return (
     <div className="TempoControls">
-      <Control label="BPM" value={bpm} />
+      {showingCtls && <Control label="BPM" value={bpm} />}
     </div>
   );
 };
 
 Sequencer = connect(state => {
   const { bpm } = state.sequencer;
-  return { bpm };
+  const { showingCtls } = state.utils;
+  return { bpm, showingCtls };
 })(Sequencer);
 
 export default Sequencer;

@@ -10,7 +10,7 @@ import Score from "./containers/Score";
 import Synth from "./containers/Synth";
 import "./App.sass";
 
-function App() {
+function App({ presets }) {
   return (
     <>
       <div className="App">
@@ -24,7 +24,7 @@ function App() {
         <PlayControls />
         <Synth />
       </div>
-      <Score />
+      <Score presets={presets} />
     </>
   );
 }

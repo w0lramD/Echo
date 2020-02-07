@@ -1,22 +1,27 @@
 import React from "react";
 import { connect } from "react-redux";
-import DelayView from "../uix/DelayView";
+import Control from "../uix/Control";
 import "./EchoControls.sass";
 
-let EchoControls = ({ synthState }) => {
+let EchoControls = ({ synthState, showingCtls }) => {
   return (
     <div className="EchoControls">
-      <DelayView value={synthState.echo1} />
-      <DelayView value={synthState.echo2} />
-      <DelayView value={synthState.echo3} />
-      <DelayView value={synthState.echo4} />
+      {showingCtls && (
+        <>
+          <Control label="1st echo" value={synthState.echo1} />
+          <Control label="2nd echo" value={synthState.echo2} />
+          <Control label="3rd echo" value={synthState.echo3} />
+          <Control label="4th echo" value={synthState.echo4} />
+        </>
+      )}
     </div>
   );
 };
 
 EchoControls = connect(state => {
   const { synthState } = state;
-  return { synthState };
+  const { showingCtls } = state.utils;
+  return { synthState, showingCtls };
 })(EchoControls);
 
 export default EchoControls;
