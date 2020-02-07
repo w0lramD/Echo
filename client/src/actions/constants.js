@@ -9,5 +9,3 @@ export const SET_TIME = "SET_TIME";
 export const SET_PLAYING = "SET_PLAYING";
 
 export const SET_SYNTH_STATE = "SET_SYNTH_STATE";
-
-export const SET_SEQUENCER_STATE = "SET_SEQUENCER_STATE";
