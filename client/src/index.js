@@ -8,7 +8,7 @@ import presets from "./presets";
 import * as serviceWorker from "./serviceWorker";
 import "normalize.css";
 
-const store = createStore(rootReducer, presets.preset0);
+const store = createStore(rootReducer, presets[0]);
 
 ReactDOM.render(
   <Provider store={store}>

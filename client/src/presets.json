@@ -1,113 +1,299 @@
-{
-  "preset0": {
+[
+  {
     "synthState": {
       "portamento": 0,
       "volume": "-48",
       "detune": "0",
-      "waveform": 3,
+      "waveform": 0,
       "filterFreq": 200,
       "filterRes": 6,
       "filterType": 0,
-      "echo1": 0.3,
-      "echo2": 0.5,
-      "echo3": 0.8,
-      "echo4": 0.3
+      "echo1": 0,
+      "echo2": 0,
+      "echo3": 0,
+      "echo4": 0
     },
     "sequencer": {
       "bpm": 120,
-      "steps": [
-        "C2",
-        "C3",
-        "C3",
-        "C3",
-        "F1",
-        "Bb3",
-        "C3",
-        "C3",
-        "Eb2",
-        "C3",
-        "Ab4",
-        "C3",
-        "Eb2",
-        "C3",
-        "Eb5",
-        "C3"
-      ],
+      "steps": ["C6"],
       "direction": 0
     }
   },
-  "preset1": {
+  {
     "synthState": {
       "portamento": 0,
       "volume": "-48",
-      "detune": "0",
-      "waveform": 3,
+      "detune": 30,
+      "waveform": 0,
+      "filterFreq": 1200,
+      "filterRes": 6,
+      "filterType": 0,
+      "echo1": 0,
+      "echo2": 0,
+      "echo3": 0.5,
+      "echo4": 0
+    },
+    "sequencer": {
+      "bpm": 120,
+      "steps": ["C6"],
+      "direction": 0
+    }
+  },
+  {
+    "synthState": {
+      "portamento": 0,
+      "volume": "-48",
+      "detune": 0,
+      "waveform": 0,
+      "filterFreq": 1200,
+      "filterRes": 6,
+      "filterType": 0,
+      "echo1": 0.1,
+      "echo2": 0.8,
+      "echo3": 0.5,
+      "echo4": 0.2
+    },
+    "sequencer": {
+      "bpm": 120,
+      "steps": ["A5"],
+      "direction": 0
+    }
+  },
+  {
+    "synthState": {
+      "portamento": 0,
+      "volume": "-48",
+      "detune": 0,
+      "waveform": 0,
+      "filterFreq": 1200,
+      "filterRes": 6,
+      "filterType": 0,
+      "echo1": 0.1,
+      "echo2": 0.8,
+      "echo3": 0.5,
+      "echo4": 0.2
+    },
+    "sequencer": {
+      "bpm": 120,
+      "steps": ["Bb5"],
+      "direction": 0
+    }
+  },
+  {
+    "synthState": {
+      "portamento": 0,
+      "volume": "-48",
+      "detune": 0,
+      "waveform": 0,
+      "filterFreq": 1200,
+      "filterRes": 6,
+      "filterType": 0,
+      "echo1": 0.1,
+      "echo2": 0.8,
+      "echo3": 0.5,
+      "echo4": 0.2
+    },
+    "sequencer": {
+      "bpm": 120,
+      "steps": ["A5", "Bb5"],
+      "direction": 0
+    }
+  },
+  {
+    "synthState": {
+      "portamento": 0,
+      "volume": "-48",
+      "detune": 15,
+      "waveform": 0,
+      "filterFreq": 1200,
+      "filterRes": 6,
+      "filterType": 0,
+      "echo1": 0.6,
+      "echo2": 0.8,
+      "echo3": 0.5,
+      "echo4": 0.8
+    },
+    "sequencer": {
+      "bpm": 120,
+      "steps": ["A5", "Bb5"],
+      "direction": 0
+    }
+  },
+  {
+    "synthState": {
+      "portamento": 0,
+      "volume": "-48",
+      "detune": 15,
+      "waveform": 0,
       "filterFreq": 400,
       "filterRes": 6,
       "filterType": 0,
-      "echo1": 0.3,
-      "echo2": 0.5,
-      "echo3": 0.8,
-      "echo4": 0.3
+      "echo1": 0.6,
+      "echo2": 0.8,
+      "echo3": 0.5,
+      "echo4": 0.8
     },
     "sequencer": {
       "bpm": 120,
-      "steps": [
-        "C6",
-        "C3",
-        "C3",
-        "C3",
-        "F1",
-        "Bb3",
-        "C3",
-        "C3",
-        "Eb2",
-        "C3",
-        "Ab4",
-        "C3",
-        "Eb2",
-        "C3",
-        "Eb5",
-        "C3"
-      ],
+      "steps": ["A5", "Bb5"],
       "direction": 0
     }
   },
-  "preset2": {
+  {
     "synthState": {
       "portamento": 0,
       "volume": "-48",
-      "detune": "0",
-      "waveform": 3,
-      "filterFreq": 1000,
+      "detune": 15,
+      "waveform": 0,
+      "filterFreq": 300,
       "filterRes": 6,
       "filterType": 0,
-      "echo1": 0.8,
-      "echo2": 0.5,
-      "echo3": 0.8,
-      "echo4": 0.3
+      "echo1": 0.6,
+      "echo2": 0.8,
+      "echo3": 0.5,
+      "echo4": 0.8
+    },
+    "sequencer": {
+      "bpm": 120,
+      "steps": ["A5", "Bb5"],
+      "direction": 0
+    }
+  },
+  {
+    "synthState": {
+      "portamento": 0,
+      "volume": "-48",
+      "detune": 15,
+      "waveform": 3,
+      "filterFreq": 300,
+      "filterRes": 6,
+      "filterType": 0,
+      "echo1": 0.6,
+      "echo2": 0.8,
+      "echo3": 0.5,
+      "echo4": 0.8
+    },
+    "sequencer": {
+      "bpm": 120,
+      "steps": ["A5", "Bb5"],
+      "direction": 0
+    }
+  },
+  {
+    "synthState": {
+      "portamento": 0,
+      "volume": "-48",
+      "detune": 0,
+      "waveform": 2,
+      "filterFreq": 600,
+      "filterRes": 6,
+      "filterType": 0,
+      "echo1": 0.2,
+      "echo2": 0.8,
+      "echo3": 0.5,
+      "echo4": 0.2
+    },
+    "sequencer": {
+      "bpm": 120,
+      "steps": ["A5", "Bb5"],
+      "direction": 0
+    }
+  },
+  {
+    "synthState": {
+      "portamento": 0,
+      "volume": "-48",
+      "detune": 0,
+      "waveform": 2,
+      "filterFreq": 800,
+      "filterRes": 16,
+      "filterType": 1,
+      "echo1": 0.2,
+      "echo2": 0.8,
+      "echo3": 0.5,
+      "echo4": 0.2
+    },
+    "sequencer": {
+      "bpm": 120,
+      "steps": ["C5"],
+      "direction": 0
+    }
+  },
+  {
+    "synthState": {
+      "portamento": 0,
+      "volume": "-48",
+      "detune": 0,
+      "waveform": 2,
+      "filterFreq": 1200,
+      "filterRes": 16,
+      "filterType": 0,
+      "echo1": 0.2,
+      "echo2": 0.8,
+      "echo3": 0.5,
+      "echo4": 0.2
+    },
+    "sequencer": {
+      "bpm": 120,
+      "steps": ["A2", "C5", "B3"],
+      "direction": 0
+    }
+  },
+  {
+    "synthState": {
+      "portamento": 0,
+      "volume": "-48",
+      "detune": 0,
+      "waveform": 2,
+      "filterFreq": 5000,
+      "filterRes": 6,
+      "filterType": 0,
+      "echo1": 0.2,
+      "echo2": 0.8,
+      "echo3": 0.5,
+      "echo4": 0.2
+    },
+    "sequencer": {
+      "bpm": 120,
+      "steps": ["A2", "C5", "B3"],
+      "direction": 0
+    }
+  },
+  {
+    "synthState": {
+      "portamento": 0,
+      "volume": "-48",
+      "detune": 0,
+      "waveform": 3,
+      "filterFreq": 5000,
+      "filterRes": 6,
+      "filterType": 0,
+      "echo1": 0.2,
+      "echo2": 0.8,
+      "echo3": 0.5,
+      "echo4": 0.2
     },
     "sequencer": {
       "bpm": 120,
       "steps": [
-        "C6",
-        "F3",
-        "D3",
-        "C3",
-        "F1",
-        "Bb3",
-        "C3",
-        "C3",
-        "Eb2",
-        "C3",
-        "Ab4",
-        "C3",
-        "Eb2",
-        "C3",
-        "Eb5",
-        "C3"
+        "A2",
+        "C5",
+        "B3",
+        "A2",
+        "C5",
+        "B3",
+        "A2",
+        "C5",
+        "B3",
+        "A2",
+        "C5",
+        "E2",
+        "B3",
+        "A2",
+        "D5",
+        "A2"
       ],
       "direction": 0
     }
   }
-}
+]

@@ -13,7 +13,7 @@ let Synth = props => {
 
   let { playing } = props;
   useEffect(() => {
-    if (playing) synth.triggerAttack(0, 0.1);
+    if (playing) synth.triggerAttack(0.5);
     else synth.triggerRelease(0.5);
   }, [playing]);
 

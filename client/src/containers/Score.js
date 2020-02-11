@@ -20,22 +20,22 @@ let Score = props => {
         viewFactor: 0.0,
         beforeReveal: el => {
           if (_token) {
-            _presetA = presets[el.className.split(".").join("")];
+            _presetA = presets[el.className.replace("preset", "")];
             _presetA.offsetTop = el.offsetTop;
             onSequencerChange(_presetA.sequencer);
           } else {
-            _presetB = presets[el.className.split(".").join("")];
+            _presetB = presets[el.className.replace("preset", "")];
             _presetB.offsetTop = el.offsetTop;
             onSequencerChange(_presetB.sequencer);
           }
           if (!_presetB) {
-            _presetB = presets.preset1;
+            _presetB = presets[1];
             _presetB.offsetTop = el.offsetHeight;
           }
           _token = !_token;
         }
       });
-      for (let preset in presets) SC.reveal("." + preset);
+      for (let i = 0; i < presets.length; i++) SC.reveal(".preset" + i);
       //linear interpolation between synth status a and b
       document.addEventListener("scroll", () => {
         if (_presetA && _presetB) {
@@ -70,7 +70,7 @@ let Score = props => {
         Object.keys(presets).map((preset, i) => (
           <div
             key={i}
-            className={preset}
+            className={"preset" + i}
             style={{ top: i * 10000 + "vh" }}
           ></div>
         ))}
