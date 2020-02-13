@@ -12,20 +12,22 @@ import "./App.sass";
 
 function App({ presets }) {
   return (
-    <>
-      <div className="App">
-        <TempoControls />
-        <Sequencer />
-        <div>
-          <OscControls />
-          <FilterControls />
+    <div className="App">
+      <Synth />
+      <div className="controls-modal">
+        <div className="controls-container">
+          <TempoControls />
+          <Sequencer />
+          <div>
+            <OscControls />
+            <FilterControls />
+          </div>
+          <EchoControls />
+          <PlayControls />
         </div>
-        <EchoControls />
-        <PlayControls />
-        <Synth />
       </div>
       <Score presets={presets} />
-    </>
+    </div>
   );
 }
 

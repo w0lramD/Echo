@@ -1,16 +1,28 @@
 @import "palette.sass"
 
-#root
+.App
   font-family: "Titillium Web", sans-serif
   color: $textColor
   display: flex
   justify-content: center
   align-items: center
 
-  .App
-    position: fixed
-    top: 30%
+  .controls-modal
     display: flex
-    flex-wrap: wrap
-    height: 220px
-    width: 220px
+    justify-content: center
+    align-items: center
+    position: fixed
+    top: 0
+    left: 0
+    width: 100vw
+    height: 100vh
+    z-index: 100
+    background: $bgColor
+    opacity: 0.6
+
+    .controls-container
+      position: fixed
+      display: flex
+      flex-wrap: wrap
+      height: 220px
+      width: 220px

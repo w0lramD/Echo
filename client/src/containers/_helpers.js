@@ -1,4 +1,5 @@
-import { MonoSynth, Compressor, FeedbackDelay, Freeverb } from "tone";
+import { MonoSynth, Compressor, FeedbackDelay, Freeverb, Meter } from "tone";
+import p5 from "p5";
 
 export const getCurrentStep = (steps, direction, time) => {
   if (steps) {
@@ -69,6 +70,7 @@ export const createSynth = () => {
   }).toMaster();
   synth.rev = new Freeverb(0.8, 500).connect(synth.limiter);
   synth.rev.wet.value = 0.2;
+  synth.rms = new Meter();
   synth.echo1 = new FeedbackDelay("1n", 0).connect(synth.rev);
   synth.echo2 = new FeedbackDelay("2n", 0).connect(synth.rev);
   synth.echo3 = new FeedbackDelay("3n", 0).connect(synth.rev);
@@ -78,7 +80,8 @@ export const createSynth = () => {
     .connect(synth.echo2)
     .connect(synth.echo3)
     .connect(synth.echo4)
-    .connect(synth.rev);
+    .connect(synth.rev)
+    .connect(synth.rms);
   return synth;
 };
 
@@ -100,4 +103,57 @@ export const updateSynthState = (synth, synthState) => {
     synth.echo3.wet.value = synthState.echo3;
     synth.echo4.wet.value = synthState.echo4;
   }
+};
+
+//background
+export const createBackground = (synth, divSelector) => {
+  let p5div = document.querySelector(".Synth");
+  let w, h, freq;
+  let p5sketch = p5 => {
+    p5.setup = () => {
+      w = p5div.clientWidth;
+      h = p5div.clientHeight;
+      p5.noStroke();
+      p5.createCanvas(w, h);
+    };
+    p5.windowResized = () => {
+      w = p5div.clientWidth;
+      h = p5div.clientHeight;
+      p5.resizeCanvas(w, h);
+    };
+    p5.draw = () => {
+      if (freq === synth.frequency.value) return;
+      freq = synth.frequency.value;
+      p5.fill(p5.random(255), p5.random(255), p5.random(255));
+      p5.clear();
+      switch (p5.floor(p5.random(3))) {
+        case 0:
+          p5.triangle(
+            p5.random(w / 2 - w / 6, w / 2),
+            h / 2 + h / 6,
+            p5.random(w / 2 - w / 6, w / 2 + w / 6),
+            h / 2 - h / 6,
+            p5.random(w / 2 - w / 6, w / 2 + w / 6),
+            p5.random(h / 2 - h / 6, h / 2 + h / 6)
+          );
+          return;
+        case 1:
+          p5.quad(
+            p5.random(w / 2 - w / 6, w / 2),
+            h / 2 + h / 6,
+            p5.random(w / 2 - w / 6, w / 2 + w / 6),
+            h / 2 - h / 6,
+            p5.random(w / 2 - w / 6, w / 2 + w / 6),
+            p5.random(h / 2 - h / 6, h / 2 + h / 6),
+            p5.random(w / 2 - w / 6, w / 2 + w / 6),
+            p5.random(h / 2 + h / 6, h / 2 + h / 6)
+          );
+          return;
+        default:
+          return;
+      }
+    };
+  };
+  //P5.js sketch instance
+  new p5(p5sketch, p5div);
 };

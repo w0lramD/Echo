@@ -1,12 +1,23 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { getCurrentStep, createSynth, updateSynthState } from "./_helpers";
+import {
+  createSynth,
+  updateSynthState,
+  getCurrentStep,
+  createBackground
+} from "./_helpers";
+import "./Synth.sass";
 
 const synth = createSynth();
 let _direction, _playing, _steps;
 
 let Synth = props => {
   let { synthState } = props;
+
+  useEffect(() => {
+    createBackground(synth);
+  }, []);
+
   useEffect(() => {
     updateSynthState(synth, synthState);
   }, [synthState]);
@@ -32,7 +43,7 @@ let Synth = props => {
     }
   }, [time]);
 
-  return <></>;
+  return <div className="Synth"></div>;
 };
 
 Synth = connect(state => {
