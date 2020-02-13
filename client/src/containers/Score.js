@@ -71,7 +71,7 @@ let Score = props => {
           <div
             key={i}
             className={"preset" + i}
-            style={{ top: i * 10000 + "vh" }}
+            style={{ top: i * 1000 + "vh" }}
           ></div>
         ))}
     </div>

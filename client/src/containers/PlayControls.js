@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import Tone from "tone";
@@ -7,6 +7,10 @@ import "./PlayControls.sass";
 let PlayControls = props => {
   let { playing, onPlayChange } = props;
   let { showingCtls, onShowingCtlsChange } = props;
+  useEffect(() => {
+    showingCtls = true;
+    onShowingCtlsChange(showingCtls);
+  }, []);
   return (
     <div className="PlayControls">
       <div

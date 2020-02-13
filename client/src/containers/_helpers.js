@@ -71,10 +71,10 @@ export const createSynth = () => {
   synth.rev = new Freeverb(0.8, 500).connect(synth.limiter);
   synth.rev.wet.value = 0.2;
   synth.rms = new Meter();
-  synth.echo1 = new FeedbackDelay("1n", 0).connect(synth.rev);
-  synth.echo2 = new FeedbackDelay("2n", 0).connect(synth.rev);
-  synth.echo3 = new FeedbackDelay("3n", 0).connect(synth.rev);
-  synth.echo4 = new FeedbackDelay("4n", 0).connect(synth.rev);
+  synth.echo1 = new FeedbackDelay("1n", 0.3).connect(synth.rev);
+  synth.echo2 = new FeedbackDelay("2n", 0.3).connect(synth.rev);
+  synth.echo3 = new FeedbackDelay("3n", 0.3).connect(synth.rev);
+  synth.echo4 = new FeedbackDelay("4n", 0.3).connect(synth.rev);
   synth
     .connect(synth.echo1)
     .connect(synth.echo2)
