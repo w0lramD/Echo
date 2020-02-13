@@ -28,6 +28,7 @@ let PlayControls = props => {
       >
         {(showingCtls && "hide status") || "show status"}
       </div>
+      <div>scroll up/down with the audio on</div>
     </div>
   );
 };
